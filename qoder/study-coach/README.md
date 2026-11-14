@@ -5,11 +5,13 @@
 **OceanBase PowerContext** 中，重启进程后仍可读取。
 
 > 本作品的主要编码、调试与验证均由 **Qoder CN** 本次真实会话完成。协调方 **Codex** 负责
-> 需求梳理、真实浏览器行为核验与应用截图采集（详见 `COORDINATOR_QA.md`）。开发记录见
+> 需求梳理、真实浏览器行为核验与应用截图采集（详见 `docs/DELIVERY_STATUS.md`）。开发记录见
 > [`docs/DEVLOG.md`](docs/DEVLOG.md)，可复现验证记录见 [`docs/VERIFICATION.md`](docs/VERIFICATION.md)。
 >
 > 代码仓库（交付分支，由协调方基于官方生态模板创建，不覆盖其他方案分支）：
 > <https://github.com/LiuHy318/powercontext/tree/feature/qoder-study-coach/qoder/study-coach>
+>
+> 参赛账号 UID：`1912194676404092`（用户确认，2026-11-15）。
 
 ---
 
@@ -71,7 +73,7 @@ qoder/study-coach/
 > 分支是一个**空资产模板**（仅 `dify/gaode/minimax/qoder/stepfun` 目录与 `.gitkeep`），
 > **并非可安装的 SDK**，不能 `pip install` 出 PowerContext。真正可复现的运行时来自 **PyPI 上的
 > 官方发布版**。本作品在“干净虚拟环境”（不带 `--system-site-packages`、不含任何 editable 兄弟包）
-> 中以 `pip install "powercontext[client,cli,server]==1.2.0"` 完整跑通 19 项测试（见 `docs/VERIFICATION.md`）。
+> 中以 `pip install "powercontext[client,cli,server]==1.2.0"` 完整跑通 21 项测试（见 `docs/VERIFICATION.md`）。
 >
 > 说明：开发机上曾以 editable 兄弟源码 `powercontext @ d0813396beea304b4ded9911f516dbea1a28b58e`
 > （版本 `1.2.1.dev3+gd0813396b`，即在官方赛事基线 `9db1753434162c0aa7c9f1189a1722e617880a52`
@@ -126,9 +128,9 @@ python -m pytest -q
 ```
 
 集成测试会**自行启动一个隔离的真实 PowerContext Server**（`.runtime/testdata`），因此运行时需要
-`powercontext[client,cli,server]` 已正确安装。共 **19 项**：真实写入/读取、计划使用既往记忆、空间隔离、
-**进程重启恢复**、空空间初始体验、无效输入、后端不可用，以及**分页回归**——单空间写入 101 条笔记
-（超过 SDK 单页 100 条上限）后必须全部列出并进入计划、创建 55 个空间（超过默认页 50）后必须全部列出。
+`powercontext[client,cli,server]` 已正确安装。共 **21 项**：真实写入/读取、计划使用既往记忆、空间隔离、
+**进程重启恢复**、空空间初始体验、无效输入、后端不可用、**无网络的传输安全**（非回环明文 HTTP 被拒、回环/HTTPS 放行），以及**分页回归**——单空间写入 101 条笔记
+（超过 SDK 单页 100 条上限）后必须全部列出并进入计划、创建 101 个空间（超过单页 100，触发 `next_cursor` 第二页）后必须全部列出。
 启动器与就绪探测均已对**本地回环**绕过系统代理（`NO_PROXY` 追加 `127.0.0.1/localhost/::1`，不影响其它远程
 代理），就绪失败只清理**自己启动的那一个**子进程，不留孤儿服务。实测输出与逐条结果见
 [`docs/VERIFICATION.md`](docs/VERIFICATION.md)。
@@ -160,3 +162,8 @@ python -m pytest -q
 - 记忆检索为关键词（FTS）匹配；未来可在配置 embedding 后启用向量/混合检索，届时再据实声明。
 - 单条 Memory 文本上限 8192 字节；超长笔记正文可分段导入。
 - 展示站 `site/index.html` 为静态合成演示，未连接数据库；真实体验需本地运行。
+- **项目网站尚未上线**：官方 Qoder CN Sites 准备步骤多次返回 `sites_unavailable`；
+  发布状态读取返回 `sites_action_unavailable`。具体原因尚未明确，没有可交付的公开网址。
+  原始恢复信息保留在原机器本次 Qoder 会话中，详见 `docs/VERIFICATION.md` §8。
+- **Qoder 原生对话截图仍待补充**：真实 CLI 结构化开发记录已提交到
+  [`docs/evidence/qoder-cli-record.json`](docs/evidence/qoder-cli-record.json)，它不是原生对话截图。

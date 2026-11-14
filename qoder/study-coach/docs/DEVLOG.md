@@ -70,7 +70,7 @@
       `ListSourcesRequest(limit=100)` 的单页；`list_spaces` 只取默认 50 条单页。改为循环跟随
       SDK `next_cursor` 直至为空（`_PAGE_LIMIT=100`）；`Memory` 列表在本 SDK 无游标，未臆造分页参数。
       新增真实回归 `test_notes_pagination_beyond_one_page`（101 条笔记全部列出且进入计划）与
-      `test_spaces_pagination_beyond_one_page`（55 个空间全部列出）。
+      `test_spaces_pagination_beyond_one_page`（101 个空间全部列出，触发 next_cursor 第二页）。
     - **安装基线纠正**：`requirements.txt`/README/VERIFICATION 更正为官方 PyPI 发布版
       `powercontext[client,cli,server]==1.2.0`；注明 `2026-competition-ecosystem` 分支是空资产模板、
       不可安装 SDK。在**干净虚拟env**（无 `--system-site-packages`、无 editable 泄漏）实测：先发现
@@ -84,10 +84,45 @@
     - **界面截图与仓库链接**：集成 Codex 采集的真实应用截图到站点与文档；仓库链接统一指向
       `https://github.com/LiuHy318/powercontext/tree/feature/qoder-study-coach/qoder/study-coach`。
 
+11. **最终交付复核（本轮，Qoder CN）**
+    - 去除 `app/config.py` 遗留的重复 `__all__`；客户端仅保留 `trust_env=False`，**不再**用
+      `trust_transport_security=True` 绕过 SDK 的明文远端 HTTP 拒绝（回环本就不需要该覆盖）。
+    - 新增无网络的安全单测 `tests/test_config_security.py`：验证非回环明文 `http://203.0.113.10`
+      在构造阶段即被 SDK 拒绝，而回环 http 与 https 被接受。
+    - 把 `test_spaces_pagination_beyond_one_page` 由 55 空间增至 **101** 空间，因 `list_spaces`
+      现按 `limit=100` 取页，101 才真正走到 `next_cursor` 第二页；文档同步该规模。
+    - `.gitignore` 增加 `.env`/`.env.*`，保留跟踪 `config.example.env`。
+    - 修正静态展示站在 390px 视口的内联 `<code>` 溢出（`overflow-wrap:anywhere`，`<pre>` 仍横向滚动）。
+    - 填入用户确认的参赛 UID `1912194676404092` 至 README / site / SUBMISSION / VERIFICATION。
+    - 在既有干净 pinned-SDK 虚拟env（`powercontext[client,cli,server]==1.2.0`）中复跑：受影响用例
+      （安全 2 项 + 分页 2 项）与全量套件均通过，合计 **21 passed**。
+
+12. **Qoder Sites 发布尝试（本轮，用户已明确授权创建并发布，任何人可访问）**
+    - 读取 `sites-building` / `sites-hosting` 与 `references/deployment.md` 后，按官方 CLI 流程真实执行：
+      `get_context`（`productId=qoder-cn / region=cn / prod`，`host.mode=cli`、`filePreview:false`）
+      与 `list_sites`（**0 个自有站点**，确认这是新项目、无重复可复用）。
+    - 上传对象为已复核的 `site/` 目录（`index.html` + Codex 采集的 3 张真实应用截图，约 272 KB；
+      不含 `.env`、运行数据、凭据或本地 profile），`webDirectory:"site"`（非项目根）、
+      `createNewSite:true`、`displayName:"StudyRecall 研学记忆教练"`、`slug:"study-recall-coach"`、`spa:false`，
+      actionId `e8269c7a-b6f1-413b-b0f2-dd2feb0158e0`。
+    - **`prepare_site` 连续 3 次（同一 action、完全相同输入）返回 `sites_unavailable`（退出码 1）**；
+      `get_publish_status` 该 action 返回 `sites_action_unavailable`（本地无 Deployment）；
+      复查 `list_sites` 仍为 0 站点，本地**未生成** `.qoder.site` 描述文件，即云端未创建任何项目、未留下半成品站点。
+      用 `curl` 探测 `https://openapi.qoder.com.cn` 可正常应答（HTTP 404，连接成立），且同批只读操作成功，
+      故判定为站点准备能力对本账号/环境返回不可用，而非网络或输入格式问题（后者官方报
+      `sites_invalid_request` / `sites_document_invalid`）。
+    - 依官方恢复规则**不换 action、不建第二站点**：原 action 与输入保留在被忽略的
+      `.runtime/sites-prepare.json`，能力恢复后直接重试同一准备，再走 `publish_site` → `get_publish_status`
+      验证 `published:true` 与公开访问策略（`get_site_access` / `update_access_policy`）。
+    - **如实结论**：发布未成功，无公开网址/发布标识符可交付；README / SUBMISSION / VERIFICATION §8 均记录
+      真实返回值与阻塞原因，网站地址项保持“待定”，不填入任何猜测链接。
+
 ## 诚实声明
 
 - 界面截图均为协调方 Codex 用真实浏览器对本地运行实例的实际采集（`site/assets/*.jpg`），Qoder CN
   未生成或伪造任何截图，也未编造用户量、提效数据、参赛 UID 或发布链接；Qoder 原生对话截图本会话未产生、不虚构。
+- 站点发布**未成功**：上文第 12 条的 `sites_unavailable` 为官方工具的真实返回，未把“已授权/已构建”
+  谎称为“已上线”，也未编造公开网址或访问策略。
 - 未读取或打印凭据/环境密钥；未联系任何人；未改动 `../all-solutions` 等参考仓库；未改动 git 远端、
   未发布/推送源码。提交/发布由协调方基于官方生态基线在 `feature/qoder-study-coach` 分支处理。
 - PowerContext 为唯一事实存储，核心状态均经真实 SDK/HTTP 读写；集成测试自启真实 Server。

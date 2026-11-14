@@ -16,6 +16,11 @@ __pycache__/
 venv/
 env/
 
+# Local runtime config (personal env files stay out of source; the tracked
+# template is config.example.env, which is NOT matched by these patterns)
+.env
+.env.*
+
 # OS noise
 .DS_Store
 Thumbs.db

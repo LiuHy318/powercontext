@@ -55,7 +55,7 @@ $ python -c "from importlib.metadata import version; import powercontext; print(
 兼容性差异与修复：首次 `pip install "powercontext[server]"` 后运行 `powercontext server run` 报
 `ModuleNotFoundError: No module named 'typer'`。核对 1.2.0 元数据发现 `typer` 等 CLI 依赖位于
 **`cli`** extra 而非 `server`；据此把安装改为 `powercontext[client,cli,server]==1.2.0`（并写入
-`requirements.txt`），`Successfully installed typer-0.29.1 ...` 后一切正常。§7 的 19 项测试即在此干净
+`requirements.txt`），`Successfully installed typer-0.29.1 ...` 后一切正常。§7 的 21 项测试即在此干净
 env 全绿。Windows 提示：把 venv 建在较浅路径可避开依赖深层文件名触及 260 字符路径上限（或开启长路径支持）。
 
 ## 2. 启动真实 PowerContext Server 并确认可用
@@ -131,14 +131,16 @@ after mastery -> 索引选择: DROPPED from due list
 
 ## 5. 自动化测试（真实集成，含重启恢复、空间隔离与分页回归）
 
-以下 **19 项**均在 §1b 的干净虚拟env（`powercontext[client,cli,server]==1.2.0`）中执行：
+以下 **21 项**均在 §1b 的干净虚拟env（`powercontext[client,cli,server]==1.2.0`）中执行：
 
 ```bash
 <CLEAN-VENV>/Scripts/python.exe -m pytest -v
 ```
-真实结果：**19 passed**（editable 开发环境同代码亦 19 passed，见日志 `.runtime/final-pytest.log`）
+真实结果：**21 passed in 14.30s**（本轮在此干净 env 实测；早前 editable 开发环境同代码为 19 passed，系安全单测文件加入前）
 ```
 tests/test_acceptance_sample.py::test_acceptance_walkthrough                PASSED
+tests/test_config_security.py::test_rejects_remote_plaintext_http_without_network PASSED
+tests/test_config_security.py::test_allows_loopback_http_and_remote_https   PASSED
 tests/test_scheduler_unit.py::test_no_inputs_yields_empty_plan              PASSED
 tests/test_scheduler_unit.py::test_weaker_never_reviewed_topic_ranks_first  PASSED
 tests/test_scheduler_unit.py::test_determinism_same_inputs                  PASSED
@@ -171,7 +173,8 @@ tests/test_studyrecall_integration.py::test_spaces_pagination_beyond_one_page PA
 | 后端不可用 | `test_backend_unavailable_is_not_faked`（502/503，非假成功） |
 | 确定性可复现 | `test_determinism_same_inputs`、`test_plan_is_deterministic_for_same_inputs` |
 | **笔记分页完整性（101>100）** | `test_notes_pagination_beyond_one_page` |
-| **空间分页完整性（55>50）** | `test_spaces_pagination_beyond_one_page` |
+| **空间分页完整性（101>100，走 next_cursor 第二页）** | `test_spaces_pagination_beyond_one_page` |
+| **回环/明文传输安全（无网络）** | `tests/test_config_security.py::test_rejects_remote_plaintext_http_without_network`、`test_allows_loopback_http_and_remote_https` |
 
 ## 5b. 协调方 QA 缺陷的针对性复核（分页 / 代理 / 孤儿进程）
 
@@ -189,7 +192,7 @@ tests/.../test_spaces_pagination_beyond_one_page PASSED
 ```
 `test_notes_pagination_beyond_one_page` 在一个空间内 POST **101 条**笔记，断言
 `GET /notes` 返回 `len==101` 且第 101 条知识点在列、`plan.total_topics==101`；
-`test_spaces_pagination_beyond_one_page` 创建 **55 个**空间（>默认页 50），断言全部出现在 `GET /spaces`。
+`test_spaces_pagination_beyond_one_page` 创建 **101 个**空间（>单页 100，真正触发 `next_cursor` 第二页），断言全部出现在 `GET /spaces`。
 修复位于 `app/powercontext_store.py`：`list_notes`/`list_spaces` 现循环跟随 SDK `next_cursor`
 直至为空；`Memory` 列表按本 SDK 设计**无游标**，故未添加不存在的分页参数。
 
@@ -233,7 +236,37 @@ site/assets/mobile.jpg          # 移动端布局（374×2327，390×844 视口�
 
 - **界面截图**：已由协调方 Codex 用真实浏览器采集并集成到 `site/index.html`、`README.md` 与本记录（见 §5c）；
   这些是真实应用截图，**不是** Qoder 原生对话截图，亦未伪造。
-- **Qoder Sites 发布 / 推送**：按任务要求本次**尚未发布、尚未推送**；`site/index.html` 为已就绪的静态展示产物，
-  其演示数据已明确标注为合成、未连接数据库。发布由后续授权动作进行。
-- **参赛 UID**：待作者在官方账号页面确认后填写——`README.md`、`site/index.html`、`docs/SUBMISSION.md` 中均显式留空，绝不臆造。
+- **Qoder Sites 发布**：用户已明确授权发布，本轮**已真实执行官方流程**，但云端准备被拒绝
+  （`sites_unavailable`），因此**尚未发布、无公开网址可报告**；详见 §8，绝不把「已构建/已授权」当作已上线。
+  `site/index.html` 为已就绪的静态展示产物，其演示数据已明确标注为合成、未连接数据库。
+- **源码推送**：本会话未改动 git 远端、未推送（由协调方处理）。
+- **参赛 UID**：`1912194676404092`（用户于 2026-11-15 确认，见 `DELIVERY_IDENTITY.md`），已填入 `README.md`、`site/index.html`、`docs/SUBMISSION.md`；此前未确认时一律留空、绝不臆造。
 - **Qoder 原生对话截图**：本会话未生成，也不虚构；如需展示应以真实采集件替换。
+
+## 8. Qoder Sites 发布记录（2026-11-15，未验证发布成功）
+
+Qoder CN 在实际开发会话内使用官方 `sites-hosting` 流程，针对同一个准备意图多次执行。
+协调方另行只读核对得到 `productId=qoder-cn`、`region=cn`、`environment=prod`；
+CLI 登录状态为个人账号已登录。成功读取运行上下文并不证明发布接口可用。
+
+| 操作 | 真实返回 |
+|---|---|
+| `get_context` | 中国站生产环境、本地项目上下文、当前未列出绑定站点 |
+| `list_sites` | `total_size=0`、`projects=[]`（检查时未列出自有项目） |
+| `prepare_site`（相同 action / 输入） | `{"schemaVersion":1,"ok":false,"error":"sites_unavailable"}` |
+| `get_publish_status` | `{"schemaVersion":1,"ok":false,"error":"sites_action_unavailable"}` |
+
+准备意图使用 action ID `e8269c7a-b6f1-413b-b0f2-dd2feb0158e0`，选中本项目目录，
+`webDirectory=site`、`createNewSite=true`、`displayName=StudyRecall 研学记忆教练`、
+`slug=study-recall-coach`、`spa=false`。公共输出仅包含 `index.html` 与 3 张合成资料的真实应用截图。
+
+目前没有取得就绪草稿、公开网址、成功发布状态或公开访问策略的证据；本地未生成 `.qoder.site`
+描述文件。失败原因尚未明确，不能据此推断为登录失效、配额耗尽、套餐限制或确定没有任何云端副作用。
+访问 API 根路径得到 HTTP 404 也不能独立证明发布服务正常。
+
+原机器本次 Qoder 会话保留了被忽略的 `.runtime/sites-prepare.json` 及相同输入，便于恢复。
+恢复时先通过官方原生 Sites 流程检查现状，保留原 action 与请求意图，不创建重复站点。
+准备就绪后仍需正式 `publish_site`、读取 `get_publish_status` 确认发布、设置并核对任何人可访问，
+最后独立验证未登录访问。另一个机器不能直接复制本机 action 恢复记录。
+
+本节由协调方 Codex 按真实返回更新；Qoder CN 完成主要应用开发、修复、测试及本次发布尝试。

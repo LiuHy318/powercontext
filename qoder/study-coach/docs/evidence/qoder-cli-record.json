@@ -236,6 +236,10 @@
         "============================= 17 passed in 10.53s =============================",
         "17 passed in 10.58s"
       ],
+      "assistant_text_excerpts": [
+        "I'll start by reading the project brief and exploring the workspace structure.\n\n",
+        "Done. StudyRecall is implemented under `qoder/study-coach/` with a working FastAPI backend whose entire persistent state is real PowerContext, a responsive Chinese frontend, and a green real-backend test suite.\n\n## What was built\n- **Backend `app/`**: `config` (only points at the Server), `domain` (API models + codecs), `powercontext_store` (maps objects onto real PowerContext), `scheduler` (deterministic, explainable plan — no external model), `sample_data` (synthetic learner), `main` (FastAPI + static).\n- **PowerContext mapping (real SDK over HTTP, verified in source `../all-solutions`)**: spaces→`Scope` (`create_scope/list_scopes/get_scope`), notes→content `Source` (`create_source/get_source/list_sources`, returns `source_id`+`sha256`), preferences/weak-points/reviews→`Memory` (`remember_memory/revise_memory_entry/list_memory_entries`), retrieval→`search_memory(mode=fts)` — FTS reported honestly, never called semantic.\n- **Frontend `static/`**: single-page Chinese UI (spaces, preferences, notes, weak points, review recording, memory-based plans, search) with backend status badge, error banner, 422/backend-down surfacing, HTML-escaped output. `localStorage` only holds the last-selected space id, not data.\n- **Site `site/index.html`**: static Qoder Sites intro with features, repo/branch, repro steps — demo data clearly marked synthetic and \"未连接数据库\". Not published.\n\n## What actually passed\n- Installed `powercontext[server]` (exit 0); real SQLite server boots and is ready.\n- SDK roundtrip smoke test: scope + source (with `sha256` digest) + memory write and `search_memory` FTS hit, all read back live.\n- Full app end-to-end via `run_all.py` + `httpx`: recording a failure resurfaces that topic with a \"复习失败\" reason; recording mastery grows its interval / drops it from the due list; search returns real citations.\n- **`python -m pytest -q` → 17 passed**, including real write/read, plan-uses-past-memory, scope isolation, **restart recovery** (server process restarted, data re-read), empty-state, invalid input (422/400), and **backend-unavailable (502/503, not faked)**. Exact commands/outputs are captured in `docs/VERIFICATION.md`.\n\n## Notes / concrete limitations (not fabricated)\n- No browser is available in this environment, so I did **not** capture UI screenshots and did not fake any — the endpoint path the UI calls is verified live instead.\n- Qoder Sites **not published** and no git remote changes/push, per instructions; the coordinator handles commits.\n- **UID** left as a placeholder for you to fill from the official account page.\n- I left my loopback dev servers running: the port-based cleanup was blocked by a safety guard (it referenced a port this session didn't own), so I avoided a risky kill rather than force it.\n\nStart it with `python scripts/run_all.py` → open `http://127.0.0.1:8010` → \"载入合成示例\". Runtime DBs/logs live in the git-ignored `.runtime/`."
+      ],
       "completion": {
         "subtype": "success",
         "num_turns": 126,
@@ -449,10 +453,212 @@
         "19 passed in 14.67s",
         "19 passed in 13.76s"
       ],
+      "assistant_text_excerpts": [
+        "This continues my session as primary Qoder CN developer. Let me confirm the QA artifacts exist and check for a public SDK release to pin.\n\n",
+        "All coordinator-QA findings are fixed and re-verified. Summary of what actually changed and how it was proven.\n\n## Code fixes\n- **Pagination (the 101-saved/100-listed bug)** — `app/powercontext_store.py`: `list_notes` and `list_spaces` now loop following the SDK `next_cursor` until empty (`_PAGE_LIMIT=100`). `_entries` (Memory) left untouched — this SDK has no cursor there, so no phantom parameters were added. `search()` inherits the fix via `list_notes`.\n- **Windows loopback proxy** — `app/config.py` now exposes `create_client()` with `httpx.AsyncClient(trust_env=False)`, so the app's own loopback backend request is never captured by a machine proxy; `scripts/pc_server.py` appends `127.0.0.1/localhost/::1` to the existing `NO_PROXY`/`no_proxy` (preserving prior exclusions, remote proxying intact) and its readiness probe uses `trust_env=False`.\n- **Orphan cleanup** — `PowerContextServer.start()` wraps readiness in `try/except`; on early exit **or** timeout it calls `self.stop()`, terminating only the subprocess it spawned and closing its log handle.\n- **main.py** lifespan switched to `create_client` and closes both the SDK client and its httpx client.\n\n## Tests (real, against live PowerContext)\nAdded two genuine regressions to `tests/test_studyrecall_integration.py`:\n- `test_notes_pagination_beyond_one_page` — POSTs **101** notes, asserts all 101 are listed and `plan.total_topics == 101`.\n- `test_spaces_pagination_beyond_one_page` — creates **55** spaces (> the 50-page default), asserts all appear in `GET /spaces`.\n\nSuite is now **19 tests**; verified twice: **19 passed** in the editable dev env and **19 passed in a clean, isolated venv** (`isolated: True`, `powercontext` loaded from the venv site-packages, not any editable sibling).\n\n## Clean install proof\n`python -m venv` (no `--system-site-packages`), then:\n```\npip install \"powercontext[client,cli,server]==1.2.0\" fastapi \"uvicorn>=0.34,<1\" \"httpx>=0.28,<1\" \"pydantic>=2,<3\" \"pytest>=8,<10\"\n```\nFound and fixed a real compatibility difference: `[server]` alone does **not** bring `typer` (the CLI launcher needs it) — Server exited code 1 with `ModuleNotFoundError: No module named 'typer'`. Metadata showed `typer` lives under the **`cli`** extra, so the pin is `powercontext[client,cli,server]==1.2.0`. `requirements.txt`, README §4, VERIFICATION §1b/§5b and SUBMISSION now all reflect this, and explicitly state `2026-competition-ecosystem` is an **empty asset template that does not install the SDK**. No runtime step depends on a local absolute path.\n\nProxy + pagination were also asserted live: NO_PROXY `.internal,10.0.0.1 → .internal,10.0.0.1,127.0.0.1,localhost,::1` with `HTTP_PROXY` preserved, app client `trust_env=False`, loopback clients build while non-loopback plaintext is refused by the SDK guard.\n\n## Docs / site / attribution\n- Embedded the three **real app screenshots** (`site/assets/memory-plan.jpg`, `after-mastery.jpg`, `mobile.jpg`) into `site/index.html` and README as a \"真实应用截图\" section, labelled as captured by **Codex browser QA of the running app — not fabricated, not Qoder-native conversation screenshots**.\n- Honest attribution added to DEVLOG/README/VERIFICATION/SUBMISSION: **Qoder CN** built the main app and all these fixes; **Codex** coordinated requirements, verified browser behavior, and captured screenshots. UID and any native-Qoder screenshots remain explicitly pending — never invented.\n- Repo links updated everywhere to `https://github.com/LiuHy318/powercontext/tree/feature/qoder-study-coach/qoder/study-coach`.\n\n## Not done (per your constraints)\n- Did **not** publish Sites, push, or touch git remotes; did not edit reference repos; did not read/print credentials; did not kill servers by port. One leftover: the throwaway venv at `C:\\pcv` (created outside the project) is still on disk — safe for you to delete."
+      ],
       "completion": {
         "subtype": "success",
         "num_turns": 100,
         "total_credits": 67.51677098100002
+      }
+    },
+    {
+      "source": "qodercn-delivery.stream.jsonl",
+      "source_sha256": "250964097b9fab5c561d14c88be0b67de6af3c6f6b4413c285573c540dc9289c",
+      "tool_calls": 87,
+      "edits": [
+        {
+          "tool_index": 4,
+          "tool": "Edit",
+          "path": "qoder/study-coach/app/config.py"
+        },
+        {
+          "tool_index": 5,
+          "tool": "Edit",
+          "path": "qoder/study-coach/tests/test_studyrecall_integration.py"
+        },
+        {
+          "tool_index": 6,
+          "tool": "Write",
+          "path": "qoder/study-coach/tests/test_config_security.py"
+        },
+        {
+          "tool_index": 7,
+          "tool": "Edit",
+          "path": "qoder/study-coach/site/index.html"
+        },
+        {
+          "tool_index": 9,
+          "tool": "Edit",
+          "path": "qoder/study-coach/.gitignore"
+        },
+        {
+          "tool_index": 11,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/SUBMISSION.md"
+        },
+        {
+          "tool_index": 12,
+          "tool": "Edit",
+          "path": "qoder/study-coach/site/index.html"
+        },
+        {
+          "tool_index": 13,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/VERIFICATION.md"
+        },
+        {
+          "tool_index": 14,
+          "tool": "Edit",
+          "path": "qoder/study-coach/README.md"
+        },
+        {
+          "tool_index": 15,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/DEVLOG.md"
+        },
+        {
+          "tool_index": 17,
+          "tool": "Edit",
+          "path": "qoder/study-coach/README.md"
+        },
+        {
+          "tool_index": 18,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/VERIFICATION.md"
+        },
+        {
+          "tool_index": 19,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/VERIFICATION.md"
+        },
+        {
+          "tool_index": 20,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/SUBMISSION.md"
+        },
+        {
+          "tool_index": 21,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/SUBMISSION.md"
+        },
+        {
+          "tool_index": 22,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/SUBMISSION.md"
+        },
+        {
+          "tool_index": 23,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/DEVLOG.md"
+        },
+        {
+          "tool_index": 24,
+          "tool": "Edit",
+          "path": "qoder/study-coach/site/index.html"
+        },
+        {
+          "tool_index": 30,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/VERIFICATION.md"
+        },
+        {
+          "tool_index": 31,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/VERIFICATION.md"
+        },
+        {
+          "tool_index": 32,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/SUBMISSION.md"
+        },
+        {
+          "tool_index": 33,
+          "tool": "Edit",
+          "path": "qoder/study-coach/README.md"
+        },
+        {
+          "tool_index": 35,
+          "tool": "Edit",
+          "path": "qoder/study-coach/README.md"
+        },
+        {
+          "tool_index": 36,
+          "tool": "Edit",
+          "path": "qoder/study-coach/site/index.html"
+        },
+        {
+          "tool_index": 37,
+          "tool": "Edit",
+          "path": "qoder/study-coach/site/index.html"
+        },
+        {
+          "tool_index": 39,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/DEVLOG.md"
+        },
+        {
+          "tool_index": 55,
+          "tool": "Write",
+          "path": "qoder/study-coach/.runtime/sites-prepare.json"
+        },
+        {
+          "tool_index": 76,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/VERIFICATION.md"
+        },
+        {
+          "tool_index": 77,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/VERIFICATION.md"
+        },
+        {
+          "tool_index": 78,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/SUBMISSION.md"
+        },
+        {
+          "tool_index": 79,
+          "tool": "Edit",
+          "path": "qoder/study-coach/README.md"
+        },
+        {
+          "tool_index": 80,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/DEVLOG.md"
+        },
+        {
+          "tool_index": 82,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/DEVLOG.md"
+        },
+        {
+          "tool_index": 87,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/VERIFICATION.md"
+        }
+      ],
+      "pytest_summary_excerpts": [
+        "============================== 4 passed in 7.26s ==============================",
+        "21 passed in 14.30s",
+        "qoder\\study-coach\\docs\\VERIFICATION.md:139:真实结果：**19 passed**（editable 开发环境同代码亦 19 passed，见日志 `.runtime/final-pytest.log`）",
+        "qoder\\study-coach\\docs\\evidence\\qoder-cli-record.json:443:        \"19 passed in 14.26s\",",
+        "qoder\\study-coach\\docs\\evidence\\qoder-cli-record.json:445:        \"19 passed in 13.85s\",",
+        "qoder\\study-coach\\docs\\evidence\\qoder-cli-record.json:449:        \"19 passed in 14.67s\",",
+        "qoder\\study-coach\\docs\\evidence\\qoder-cli-record.json:450:        \"19 passed in 13.76s\"",
+        "139\t真实结果：**19 passed**（editable 开发环境同代码亦 19 passed，见日志 `.runtime/final-pytest.log`）",
+        "98\t      （安全 2 项 + 分页 2 项）与全量套件均通过，合计 **21 passed**。",
+        "98\t      （安全 2 项 + 分页 2 项）与全量套件均通过，合计 **21 passed**。"
+      ],
+      "assistant_text_excerpts": [
+        "Let me read the two new files and the current state of the code the review references.\n\n",
+        "Delivery work is complete except publication, which the service refused. Honest result:\n\n**Code/docs this turn (verified, not claimed):** duplicate `__all__` removed from `app/config.py`; the plain client keeps only `trust_env=False` (no `trust_transport_security` override); new no-network `tests/test_config_security.py` proves the SDK refuses `http://203.0.113.10` at construction while accepting loopback HTTP and HTTPS; `test_spaces_pagination_beyond_one_page` strengthened to 101 spaces (real second `next_cursor` page); `.gitignore` now excludes `.env`/`.env.*` and still tracks `config.example.env`; the 390px inline-`<code>` overflow is fixed with `overflow-wrap:anywhere` while `<pre>` still scrolls; UID `1912194676404092` filled in README/site/SUBMISSION/VERIFICATION. In the clean pinned-SDK venv (`C:\\pcv`, kept as instructed, `powercontext[client,cli,server]==1.2.0`): affected tests `4 passed in 7.26s`, full suite **21 passed in 14.30s**.\n\n**Qoder Sites publication — blocked, not published.** I read the full `sites-building`/`sites-hosting` instructions plus `references/deployment.md`, then ran the real official CLI on this logged-in CN personal account (`productId=qoder-cn`, `region=cn`, host `mode=cli`, `filePreview:false`):\n- `get_context` → `sites: []`; `list_sites` → 0 owned projects (new site, no duplicate to reuse).\n- `prepare_site` with `actionId e8269c7a-b6f1-413b-b0f2-dd2feb0158e0`, `projectRoot=…\\qoder\\study-coach`, `webDirectory=\"site\"` (only the reviewed `index.html` + 3 real app screenshots, ~272 KB — no `.env`, runtime data or profiles), `createNewSite:true`, `displayName:\"StudyRecall 研学记忆教练\"`, `slug:\"study-recall-coach\"`, `spa:false` → **`sites_unavailable`, exit 1, four identical attempts** (no new action, no second site created).\n- `get_publish_status` for that action → `sites_action_unavailable`; no `.qoder.site` descriptor was generated; `list_sites` still 0, so nothing partial exists in the cloud.\n- `https://openapi.qoder.com.cn` answers via curl and all read operations succeeded, so this is the site-preparation capability returning unavailable — not network, not input format (`sites_invalid_request`/`sites_document_invalid`), not login (only a deliberately altered invocation form returned `sites_auth_required`), and not the documented quota code `sites_quota_exceeded` (no quota fields returned, so I won't call it a plan/site-count limit).\n\n**Exact blocker for you:** Qoder Sites cannot prepare a draft for this account from this CLI host — confirm Sites availability/entitlement for UID `1912194676404092` (or run from Qoder Desktop signed into the same account), then retry the *same* action and inputs (preserved in ignored `.runtime/sites-prepare.json`), followed by `publish_site` and `get_publish_status` until `published: true`, plus `get_site_access`/`update_access_policy` for anyone-can-access. There is no public URL to report, and I have not invented one: README §10, `docs/SUBMISSION.md` and `docs/VERIFICATION.md` §8 now state the real return values, the retained action ID and the exact retry path."
+      ],
+      "completion": {
+        "subtype": "success",
+        "num_turns": 82,
+        "total_credits": 93.25967309999997
       }
     }
   ]

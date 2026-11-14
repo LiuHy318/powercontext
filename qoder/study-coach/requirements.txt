@@ -1,0 +1,47 @@
+# StudyRecall application dependencies (installed locally into a clean virtualenv;
+# NOT part of tracked source assets — the virtualenv itself lives under .runtime/).
+#
+# IMPORTANT — what this project actually needs at runtime is TWO different things:
+#
+#   1. The POWERCONTEXT SDK + SERVER + CLI. This is a real, published package on
+#      PyPI (`powercontext`), and StudyRecall needs three of its extras:
+#        - client : the async SDK (powercontext.client) the app persists through
+#        - cli    : the `powercontext server run` launcher (needs typer) used by the
+#                   tests and scripts/run_all.py to boot an isolated real Server
+#        - server : the server runtime + built-in SQLite persistence
+#      Install all three as a single pinned release:
+#
+#          pip install "powercontext[client,cli,server]==1.2.0"
+#
+#      1.2.0 is the closest public release to the runtime this build was developed
+#      and tested against. The development machine had an *editable* sibling
+#      checkout at commit d0813396beea304b4ded9911f516dbea1a28b58e
+#      (version 1.2.1.dev3+gd0813396b), which is the official competition baseline
+#      9db1753434162c0aa7c9f1189a1722e617880a52 plus PDF-only commits. All core
+#      interfaces used here (create_scope/list_scopes, create_source/list_sources,
+#      remember_memory/revise_memory_entry/list_memory_entries, search_memory FTS,
+#      and the Source/Scope `next_cursor` pagination cursors) are the stable public
+#      HTTP API. This exact `pip install "powercontext[client,cli,server]==1.2.0"`
+#      into a CLEAN virtualenv (no --system-site-packages) was used to re-run the
+#      full 19-test suite green; see docs/VERIFICATION.md.
+#
+#   2. The web app + test tooling, listed at the bottom of this file.
+#
+# NOTE ON THE BRANCH: the `2026-competition-ecosystem` branch of
+#   oceanbase/powercontext is an EMPTY ASSET TEMPLATE (only dify/gaode/minimax/
+#   qoder/stepfun directories + .gitkeep). It is NOT installable SDK source and
+#   does NOT `pip install` PowerContext. Do not treat it as the runtime baseline.
+#   Install the SDK from the pinned PyPI release above (or, if reproducing the
+#   exact competition commit, from the official git commit — never the template).
+
+# --- PowerContext runtime (the real backend StudyRecall persists into) ---
+powercontext[client,cli,server]==1.2.0
+
+# --- StudyRecall web app + PowerContext client SDK ---
+fastapi>=0.115,<1
+uvicorn>=0.34,<1
+httpx>=0.28,<1
+pydantic>=2,<3
+
+# --- test tooling used to verify against a real PowerContext Server ---
+pytest>=8,<10

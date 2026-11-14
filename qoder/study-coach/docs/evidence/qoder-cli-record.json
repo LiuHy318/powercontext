@@ -1,0 +1,459 @@
+{
+  "origin": "Actual Qoder CN CLI 1.1.89 stream-json output",
+  "session_id": "2156042d-ad09-467c-af48-447da96a3fcd",
+  "scope": "Selected metadata and genuine pytest output only; no hidden reasoning, credentials, or private profile.",
+  "limitation": "This is a structured development record, NOT a native Qoder conversation screenshot.",
+  "coordinator": "Codex supplied requirements, reviewed results, captured real browser screenshots, and packaged delivery. Main application code and corrections were produced by Qoder CN.",
+  "records": [
+    {
+      "source": "qodercn-development.stream.jsonl",
+      "source_sha256": "306e365a33c613da01d26378b54c84c5db29e79e59a2d49aa5246fdbb9af008f",
+      "tool_calls": 130,
+      "edits": [
+        {
+          "tool_index": 50,
+          "tool": "Write",
+          "path": "qoder/study-coach/app/__init__.py"
+        },
+        {
+          "tool_index": 53,
+          "tool": "Write",
+          "path": "qoder/study-coach/scripts/smoke_test.py"
+        },
+        {
+          "tool_index": 56,
+          "tool": "Edit",
+          "path": "qoder/study-coach/scripts/smoke_test.py"
+        },
+        {
+          "tool_index": 60,
+          "tool": "Write",
+          "path": "qoder/study-coach/app/config.py"
+        },
+        {
+          "tool_index": 61,
+          "tool": "Write",
+          "path": "qoder/study-coach/app/domain.py"
+        },
+        {
+          "tool_index": 62,
+          "tool": "Write",
+          "path": "qoder/study-coach/app/scheduler.py"
+        },
+        {
+          "tool_index": 63,
+          "tool": "Edit",
+          "path": "qoder/study-coach/app/scheduler.py"
+        },
+        {
+          "tool_index": 64,
+          "tool": "Write",
+          "path": "qoder/study-coach/app/powercontext_store.py"
+        },
+        {
+          "tool_index": 67,
+          "tool": "Edit",
+          "path": "qoder/study-coach/app/powercontext_store.py"
+        },
+        {
+          "tool_index": 68,
+          "tool": "Write",
+          "path": "qoder/study-coach/app/sample_data.py"
+        },
+        {
+          "tool_index": 69,
+          "tool": "Write",
+          "path": "qoder/study-coach/app/main.py"
+        },
+        {
+          "tool_index": 70,
+          "tool": "Edit",
+          "path": "qoder/study-coach/app/main.py"
+        },
+        {
+          "tool_index": 71,
+          "tool": "Edit",
+          "path": "qoder/study-coach/app/main.py"
+        },
+        {
+          "tool_index": 74,
+          "tool": "Write",
+          "path": "qoder/study-coach/scripts/pc_server.py"
+        },
+        {
+          "tool_index": 76,
+          "tool": "Write",
+          "path": "qoder/study-coach/tests/conftest.py"
+        },
+        {
+          "tool_index": 77,
+          "tool": "Write",
+          "path": "qoder/study-coach/tests/test_studyrecall_integration.py"
+        },
+        {
+          "tool_index": 78,
+          "tool": "Edit",
+          "path": "qoder/study-coach/tests/test_studyrecall_integration.py"
+        },
+        {
+          "tool_index": 81,
+          "tool": "Edit",
+          "path": "qoder/study-coach/tests/test_studyrecall_integration.py"
+        },
+        {
+          "tool_index": 82,
+          "tool": "Edit",
+          "path": "qoder/study-coach/app/powercontext_store.py"
+        },
+        {
+          "tool_index": 85,
+          "tool": "Edit",
+          "path": "qoder/study-coach/scripts/pc_server.py"
+        },
+        {
+          "tool_index": 88,
+          "tool": "Edit",
+          "path": "qoder/study-coach/tests/test_studyrecall_integration.py"
+        },
+        {
+          "tool_index": 89,
+          "tool": "Edit",
+          "path": "qoder/study-coach/tests/test_studyrecall_integration.py"
+        },
+        {
+          "tool_index": 90,
+          "tool": "Edit",
+          "path": "qoder/study-coach/tests/test_studyrecall_integration.py"
+        },
+        {
+          "tool_index": 92,
+          "tool": "Edit",
+          "path": "qoder/study-coach/tests/test_studyrecall_integration.py"
+        },
+        {
+          "tool_index": 94,
+          "tool": "Write",
+          "path": "qoder/study-coach/tests/test_scheduler_unit.py"
+        },
+        {
+          "tool_index": 95,
+          "tool": "Edit",
+          "path": "qoder/study-coach/app/scheduler.py"
+        },
+        {
+          "tool_index": 96,
+          "tool": "Write",
+          "path": "qoder/study-coach/tests/test_acceptance_sample.py"
+        },
+        {
+          "tool_index": 98,
+          "tool": "Edit",
+          "path": "qoder/study-coach/app/scheduler.py"
+        },
+        {
+          "tool_index": 99,
+          "tool": "Edit",
+          "path": "qoder/study-coach/tests/test_acceptance_sample.py"
+        },
+        {
+          "tool_index": 101,
+          "tool": "Edit",
+          "path": "qoder/study-coach/app/domain.py"
+        },
+        {
+          "tool_index": 104,
+          "tool": "Write",
+          "path": "qoder/study-coach/static/index.html"
+        },
+        {
+          "tool_index": 105,
+          "tool": "Write",
+          "path": "qoder/study-coach/static/styles.css"
+        },
+        {
+          "tool_index": 106,
+          "tool": "Write",
+          "path": "qoder/study-coach/static/app.js"
+        },
+        {
+          "tool_index": 107,
+          "tool": "Write",
+          "path": "qoder/study-coach/scripts/run_app.py"
+        },
+        {
+          "tool_index": 108,
+          "tool": "Write",
+          "path": "qoder/study-coach/scripts/run_all.py"
+        },
+        {
+          "tool_index": 114,
+          "tool": "Write",
+          "path": "qoder/study-coach/requirements.txt"
+        },
+        {
+          "tool_index": 116,
+          "tool": "Write",
+          "path": "qoder/study-coach/.gitignore"
+        },
+        {
+          "tool_index": 117,
+          "tool": "Write",
+          "path": "qoder/study-coach/config.example.env"
+        },
+        {
+          "tool_index": 119,
+          "tool": "Write",
+          "path": "qoder/study-coach/site/index.html"
+        },
+        {
+          "tool_index": 122,
+          "tool": "Write",
+          "path": "qoder/study-coach/README.md"
+        },
+        {
+          "tool_index": 123,
+          "tool": "Write",
+          "path": "qoder/study-coach/docs/VERIFICATION.md"
+        },
+        {
+          "tool_index": 124,
+          "tool": "Write",
+          "path": "qoder/study-coach/docs/DEVLOG.md"
+        },
+        {
+          "tool_index": 125,
+          "tool": "Write",
+          "path": "qoder/study-coach/docs/SUBMISSION.md"
+        }
+      ],
+      "pytest_summary_excerpts": [
+        "2 failed, 9 passed in 10.37s",
+        "1 failed, 10 passed in 10.37s",
+        "11 passed in 10.26s",
+        "2 failed, 15 passed in 10.71s",
+        "1 failed, 16 passed in 10.67s",
+        "17 passed in 10.48s",
+        "============================= 17 passed in 10.53s =============================",
+        "17 passed in 10.58s"
+      ],
+      "completion": {
+        "subtype": "success",
+        "num_turns": 126,
+        "total_credits": 35.754180891
+      }
+    },
+    {
+      "source": "qodercn-refinement.stream.jsonl",
+      "source_sha256": "863a37e3f814091a6a096d127e1a5680a94ba53f109596513478215b7312719d",
+      "tool_calls": 100,
+      "edits": [
+        {
+          "tool_index": 7,
+          "tool": "Edit",
+          "path": "qoder/study-coach/app/powercontext_store.py"
+        },
+        {
+          "tool_index": 13,
+          "tool": "Edit",
+          "path": "qoder/study-coach/app/powercontext_store.py"
+        },
+        {
+          "tool_index": 14,
+          "tool": "Edit",
+          "path": "qoder/study-coach/app/powercontext_store.py"
+        },
+        {
+          "tool_index": 15,
+          "tool": "Edit",
+          "path": "qoder/study-coach/app/powercontext_store.py"
+        },
+        {
+          "tool_index": 17,
+          "tool": "Edit",
+          "path": "qoder/study-coach/scripts/pc_server.py"
+        },
+        {
+          "tool_index": 18,
+          "tool": "Edit",
+          "path": "qoder/study-coach/app/config.py"
+        },
+        {
+          "tool_index": 20,
+          "tool": "Edit",
+          "path": "qoder/study-coach/app/config.py"
+        },
+        {
+          "tool_index": 23,
+          "tool": "Edit",
+          "path": "qoder/study-coach/app/config.py"
+        },
+        {
+          "tool_index": 24,
+          "tool": "Edit",
+          "path": "qoder/study-coach/app/main.py"
+        },
+        {
+          "tool_index": 25,
+          "tool": "Edit",
+          "path": "qoder/study-coach/app/main.py"
+        },
+        {
+          "tool_index": 39,
+          "tool": "Edit",
+          "path": "qoder/study-coach/tests/test_studyrecall_integration.py"
+        },
+        {
+          "tool_index": 40,
+          "tool": "Write",
+          "path": "qoder/study-coach/requirements.txt"
+        },
+        {
+          "tool_index": 41,
+          "tool": "Write",
+          "path": "qoder/study-coach/requirements.txt"
+        },
+        {
+          "tool_index": 60,
+          "tool": "Edit",
+          "path": "qoder/study-coach/requirements.txt"
+        },
+        {
+          "tool_index": 62,
+          "tool": "Edit",
+          "path": "qoder/study-coach/README.md"
+        },
+        {
+          "tool_index": 63,
+          "tool": "Edit",
+          "path": "qoder/study-coach/README.md"
+        },
+        {
+          "tool_index": 64,
+          "tool": "Edit",
+          "path": "qoder/study-coach/README.md"
+        },
+        {
+          "tool_index": 65,
+          "tool": "Edit",
+          "path": "qoder/study-coach/README.md"
+        },
+        {
+          "tool_index": 68,
+          "tool": "Edit",
+          "path": "qoder/study-coach/README.md"
+        },
+        {
+          "tool_index": 69,
+          "tool": "Edit",
+          "path": "qoder/study-coach/README.md"
+        },
+        {
+          "tool_index": 70,
+          "tool": "Edit",
+          "path": "qoder/study-coach/README.md"
+        },
+        {
+          "tool_index": 71,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/VERIFICATION.md"
+        },
+        {
+          "tool_index": 76,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/VERIFICATION.md"
+        },
+        {
+          "tool_index": 77,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/VERIFICATION.md"
+        },
+        {
+          "tool_index": 78,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/DEVLOG.md"
+        },
+        {
+          "tool_index": 79,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/DEVLOG.md"
+        },
+        {
+          "tool_index": 81,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/DEVLOG.md"
+        },
+        {
+          "tool_index": 82,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/DEVLOG.md"
+        },
+        {
+          "tool_index": 83,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/SUBMISSION.md"
+        },
+        {
+          "tool_index": 85,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/SUBMISSION.md"
+        },
+        {
+          "tool_index": 86,
+          "tool": "Edit",
+          "path": "qoder/study-coach/docs/SUBMISSION.md"
+        },
+        {
+          "tool_index": 87,
+          "tool": "Edit",
+          "path": "qoder/study-coach/site/index.html"
+        },
+        {
+          "tool_index": 88,
+          "tool": "Edit",
+          "path": "qoder/study-coach/site/index.html"
+        },
+        {
+          "tool_index": 89,
+          "tool": "Edit",
+          "path": "qoder/study-coach/site/index.html"
+        },
+        {
+          "tool_index": 90,
+          "tool": "Edit",
+          "path": "qoder/study-coach/site/index.html"
+        },
+        {
+          "tool_index": 91,
+          "tool": "Edit",
+          "path": "qoder/study-coach/site/index.html"
+        },
+        {
+          "tool_index": 92,
+          "tool": "Edit",
+          "path": "qoder/study-coach/site/index.html"
+        },
+        {
+          "tool_index": 96,
+          "tool": "Edit",
+          "path": "qoder/study-coach/app/config.py"
+        }
+      ],
+      "pytest_summary_excerpts": [
+        "105\t真实结果：**17 passed in 10.53s**（日志 `.runtime/final-pytest.log`）",
+        "19 passed in 14.26s",
+        "5 passed, 14 errors in 3.82s",
+        "19 passed in 13.85s",
+        "137:真实结果：**17 passed in 10.53s**（日志 `.runtime/final-pytest.log`）",
+        "137\t真实结果：**17 passed in 10.53s**（日志 `.runtime/final-pytest.log`）",
+        "============================== 2 passed in 6.83s ==============================",
+        "19 passed in 14.67s",
+        "19 passed in 13.76s"
+      ],
+      "completion": {
+        "subtype": "success",
+        "num_turns": 100,
+        "total_credits": 67.51677098100002
+      }
+    }
+  ]
+}

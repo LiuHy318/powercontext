@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>StudyRecall 研学记忆教练 · 项目介绍</title>
+<style>
+  :root{--brand:#2f6df6;--ink:#1f2733;--muted:#66707f;--bg:#f4f6fb;--card:#fff;--line:#e6eaf2;--accent:#7c5cff;--warn:#a56a00}
+  *{box-sizing:border-box}body{margin:0;font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.7}
+  header{background:linear-gradient(120deg,#243b6b,#2f6df6);color:#fff;padding:46px 20px;text-align:center}
+  header h1{margin:0 0 6px;font-size:30px}header p{margin:0;opacity:.9}
+  .notice{max-width:920px;margin:14px auto 0;padding:10px 16px;background:#fff6e0;border:1px solid #f0d08a;color:#7a5200;border-radius:10px;font-size:13px}
+  main{max-width:960px;margin:0 auto;padding:28px 18px 60px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin:18px 0;box-shadow:0 6px 22px rgba(31,39,51,.06)}
+  h2{margin:0 0 12px;font-size:20px;border-left:5px solid var(--brand);padding-left:10px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+  .feat{border:1px solid var(--line);border-radius:12px;padding:14px 16px}.feat b{display:block;margin-bottom:4px}
+  .pain{color:#9c1f1f}.pain::before{content:"✕  ";}
+  ul{margin:8px 0;padding-left:20px}
+  .demo-tag{display:inline-block;background:var(--accent);color:#fff;font-size:12px;padding:3px 10px;border-radius:999px;margin-bottom:10px}
+  pre{background:#0f172a;color:#e2e8f0;padding:16px;border-radius:12px;overflow:auto;font-size:12.5px;line-height:1.5}
+  code{font-family:ui-monospace,Menlo,Consolas,monospace}
+  .kv{font-size:13.5px;color:var(--muted)}.kv b{color:var(--ink)}
+  footer{text-align:center;color:var(--muted);font-size:12.5px;padding:24px}
+  .pill{font-size:12px;padding:2px 8px;border-radius:999px;background:#e8f0ff;color:var(--brand)}
+  .shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:8px}
+  .shots figure{margin:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+  .shots img{width:100%;height:auto;display:block;background:#0f172a}
+  .shots figcaption{padding:8px 12px;font-size:12.5px;color:var(--muted);line-height:1.5}
+</style>
+</head>
+<body>
+<header>
+  <h1>📖 StudyRecall 研学记忆教练</h1>
+  <p>可追溯 · 持久化 · 可复用的学习记忆，基于 OceanBase PowerContext</p>
+</header>
+<div class="notice">本页为项目<strong>静态介绍</strong>，用于 Qoder Sites 展示。“合成样例演示”区块为<strong>预先渲染的示例输出</strong>，本页<strong>未连接任何数据库或后端服务</strong>；而“真实应用截图”区块是本地运行真实应用（真实 PowerContext 后端）后由协调方 Codex 用浏览器<strong>实际截取</strong>的界面。真实体验请按下方步骤本地运行。</div>
+
+<main>
+<section>
+  <h2>简介</h2>
+  <p>StudyRecall 是一款中文优先的学习资料与复习进度管理工具。学习者建立学习空间、导入笔记并标注知识点，记录自评复习结果；再次打开时，应用依据既往记忆生成<strong>有解释、确定性可复现</strong>的复习计划。所有核心状态——空间、笔记、偏好、薄弱点、复习记录——都真实存放在 PowerContext 中，重启进程后仍可读取。</p>
+  <p class="kv"><b>技术栈：</b>Python 3.12 · FastAPI · 原生 HTML/CSS/JS · PowerContext 1.2.0（官方 PyPI 发布版，SQLite 持久化）· 无外部收费模型</p>
+  <p class="kv"><b>运行时基线：</b> <span class="pill">PyPI powercontext[client,cli,server]==1.2.0</span>（官方发布版）· 交付仓库 <code>LiuHy318/powercontext @ feature/qoder-study-coach</code> · 路径 <code>qoder/study-coach/</code></p>
+  <p class="kv" style="font-size:12.5px;color:#8a6d3b">注：官方 <code>2026-competition-ecosystem</code> 分支为<strong>空资产模板</strong>，不可 <code>pip install</code> 出 SDK；本项目在<strong>干净虚拟环境</strong>中用上述固定官方版本跑通全部 19 项测试。</p>
+</section>
+
+<section>
+  <h2>解决的痛点</h2>
+  <div class="grid">
+    <div class="feat"><span class="pain">复习安排凭感觉，无法解释“为什么今天复习它”</span></div>
+    <div class="feat"><span class="pain">笔记与复习进度散落各处，关掉应用就丢失</span></div>
+    <div class="feat"><span class="pain">换设备/重启后学习记忆无法延续</span></div>
+    <div class="feat"><span class="pain">“智能推荐”不透明，甚至假装连了大模型</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>核心功能</h2>
+  <div class="grid">
+    <div class="feat"><b>学习空间（PowerContext Scope）</b>空间之间数据严格隔离，互不可见。</div>
+    <div class="feat"><b>笔记导入（content Source）</b>保存标题、原文、来源标识与知识点，带内容摘要指纹。</div>
+    <div class="feat"><b>偏好 / 薄弱点 / 复习记录（Memory）</b>如“每天 25 分钟”，全部持久化于 PowerContext。</div>
+    <div class="feat"><b>可解释复习计划</b>依据薄弱程度、失败历史、遗忘间隔与时间预算，给出排序理由与下次间隔。</div>
+    <div class="feat"><b>记忆检索（FTS）</b>检索既往记忆并展示真实来源引用；仅全文检索，绝不谎称语义检索。</div>
+    <div class="feat"><b>重启恢复</b>关闭并重启服务后，读取原有空间、偏好、笔记与进度不变。</div>
+  </div>
+</section>
+
+<section>
+  <h2>PowerContext 的真实作用</h2>
+  <ul>
+    <li><b>空间隔离</b> 由 PowerContext <code>Scope</code> 提供（<code>create_scope</code> / <code>list_scopes</code>，外部引用标签 <code>study-recall-space</code>）。</li>
+    <li><b>笔记存储与回读</b> 由 PowerContext <code>content Source</code> 提供（<code>create_source</code> / <code>get_source</code> / <code>list_sources</code>），返回真实 <code>source_id</code> 与 <code>sha256</code> 内容摘要作为来源引用。</li>
+    <li><b>分页完整性</b> <code>list_scopes</code>/<code>list_sources</code> 逐页跟随 SDK <code>next_cursor</code> 直至取完，超过单页上限（笔记 100 / 空间 50）也不会漏读；已由 101 笔记、55 空间的真实集成回归覆盖。</li>
+    <li><b>偏好 / 薄弱点 / 复习记录</b> 由 PowerContext <code>Memory</code> 条目提供（<code>remember_memory</code> / <code>revise_memory_entry</code> / <code>list_memory_entries</code>）。</li>
+    <li><b>记忆检索</b> 由 <code>search_memory(mode=fts)</code> 提供，命中结果含真实引用。</li>
+    <li>复习排序与间隔由应用内<strong>确定性算法</strong>计算，不调用任何外部模型，可完全复现。</li>
+  </ul>
+</section>
+
+<section>
+  <h2>合成样例演示</h2>
+  <span class="demo-tag">合成演示数据 · 未连接真实数据库 · 仅示意输出形态</span>
+  <p>场景：合成学习者「准备数据库考试，每天 25 分钟」，薄弱点为「事务隔离级别」「索引选择」，并记录了一次「索引选择」复习失败后生成的计划：</p>
+  <pre>{
+  "daily_minutes": 25,
+  "planned_minutes": 25,
+  "items": [
+    {
+      "topic": "事务隔离级别",
+      "priority_score": 22.0,
+      "allocated_minutes": 5,
+      "next_interval_days": 1,
+      "reasons": ["从未复习，需要排入首轮复习", "薄弱知识点（程度 5/5）"]
+    },
+    {
+      "topic": "索引选择",
+      "priority_score": 16.0,
+      "allocated_minutes": 5,
+      "next_interval_days": 1,
+      "reasons": ["薄弱知识点（程度 4/5）", "复习失败 1 次"]
+    }
+  ]
+}
+# 记为“已掌握”后重新生成：索引选择的下次间隔增大并暂时退出当日到期列表。</pre>
+  <p class="kv">该输出形态取自真实应用的一次运行（见仓库 <code>docs/VERIFICATION.md</code> 中记录的实际命令与结果），此处为脱敏示例。</p>
+</section>
+
+<section>
+  <h2>真实应用截图</h2>
+  <span class="demo-tag" style="background:#2f6df6">真实应用界面 · 本地运行后由协调方 Codex 用浏览器采集 · 非设计稿 · 非 Qoder 原生对话截图</span>
+  <p>下列图片来自 <code>python scripts/run_all.py</code> 启动的真实应用（真实 PowerContext 后端）。桌面视口 1365×900，移动视口 390×844。</p>
+  <div class="shots">
+    <figure><img src="assets/memory-plan.jpg" alt="真实应用：根据既往记忆生成的复习计划，每项含理由与下次间隔" loading="lazy"><figcaption>根据既往记忆生成的复习计划：每项附优先分、理由与下次间隔。</figcaption></figure>
+    <figure><img src="assets/after-mastery.jpg" alt="真实应用：记为已掌握后，该知识点退出当日到期优先级" loading="lazy"><figcaption>把「事务隔离级别」记为已掌握后重新生成：其间隔增长并退出当日到期优先级。</figcaption></figure>
+    <figure><img src="assets/mobile.jpg" alt="真实应用：移动端 390×844 响应式布局" loading="lazy"><figcaption>移动端 390×844 视口下的响应式布局（文档宽度 375 ≤ 视口 390）。</figcaption></figure>
+  </div>
+</section>
+
+<section>
+  <h2>如何复现</h2>
+  <ul>
+    <li>安装 PowerContext 官方发布版（干净虚拟环境）：<code>pip install "powercontext[client,cli,server]==1.2.0"</code></li>
+    <li>安装应用依赖：<code>pip install -r requirements.txt</code></li>
+    <li>一键启动真实后端 + 应用：<code>python scripts/run_all.py</code>，浏览器打开 <code>http://127.0.0.1:8010</code></li>
+    <li>载入合成示例，走完“导入→失败→计划→掌握→重生成→重启恢复”验收流程</li>
+    <li>运行真实集成测试（会自启一个隔离的 PowerContext Server，共 19 项含分页回归）：<code>python -m pytest -q</code></li>
+  </ul>
+  <p class="kv"><b>交付仓库：</b><a href="https://github.com/LiuHy318/powercontext/tree/feature/qoder-study-coach/qoder/study-coach">LiuHy318/powercontext · feature/qoder-study-coach · qoder/study-coach</a></p>
+  <p class="kv"><b>参赛账号 UID：</b>待作者在官方账号页面确认后填写（当前显式留空，绝不臆造）。</p>
+</section>
+</main>
+<footer>StudyRecall · 基于 PowerContext 构建 · 本页所有演示数据均为合成，静态展示未连接后端。</footer>
+</body>
+</html>

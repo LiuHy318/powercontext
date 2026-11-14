@@ -1,0 +1,21 @@
+# Runtime-generated state and installed dependencies are NOT tracked.
+
+# Local PowerContext storage, test data and logs created by scripts/tests
+.runtime/
+
+# Python caches / build artifacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# OS noise
+.DS_Store
+Thumbs.db

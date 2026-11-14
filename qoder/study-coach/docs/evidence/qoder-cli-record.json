@@ -227,11 +227,7 @@
         }
       ],
       "pytest_summary_excerpts": [
-        "2 failed, 9 passed in 10.37s",
-        "1 failed, 10 passed in 10.37s",
         "11 passed in 10.26s",
-        "2 failed, 15 passed in 10.71s",
-        "1 failed, 16 passed in 10.67s",
         "17 passed in 10.48s",
         "============================= 17 passed in 10.53s =============================",
         "17 passed in 10.58s"
@@ -443,12 +439,9 @@
         }
       ],
       "pytest_summary_excerpts": [
-        "105\t真实结果：**17 passed in 10.53s**（日志 `.runtime/final-pytest.log`）",
         "19 passed in 14.26s",
         "5 passed, 14 errors in 3.82s",
         "19 passed in 13.85s",
-        "137:真实结果：**17 passed in 10.53s**（日志 `.runtime/final-pytest.log`）",
-        "137\t真实结果：**17 passed in 10.53s**（日志 `.runtime/final-pytest.log`）",
         "============================== 2 passed in 6.83s ==============================",
         "19 passed in 14.67s",
         "19 passed in 13.76s"
@@ -641,15 +634,7 @@
       ],
       "pytest_summary_excerpts": [
         "============================== 4 passed in 7.26s ==============================",
-        "21 passed in 14.30s",
-        "qoder\\study-coach\\docs\\VERIFICATION.md:139:真实结果：**19 passed**（editable 开发环境同代码亦 19 passed，见日志 `.runtime/final-pytest.log`）",
-        "qoder\\study-coach\\docs\\evidence\\qoder-cli-record.json:443:        \"19 passed in 14.26s\",",
-        "qoder\\study-coach\\docs\\evidence\\qoder-cli-record.json:445:        \"19 passed in 13.85s\",",
-        "qoder\\study-coach\\docs\\evidence\\qoder-cli-record.json:449:        \"19 passed in 14.67s\",",
-        "qoder\\study-coach\\docs\\evidence\\qoder-cli-record.json:450:        \"19 passed in 13.76s\"",
-        "139\t真实结果：**19 passed**（editable 开发环境同代码亦 19 passed，见日志 `.runtime/final-pytest.log`）",
-        "98\t      （安全 2 项 + 分页 2 项）与全量套件均通过，合计 **21 passed**。",
-        "98\t      （安全 2 项 + 分页 2 项）与全量套件均通过，合计 **21 passed**。"
+        "21 passed in 14.30s"
       ],
       "assistant_text_excerpts": [
         "Let me read the two new files and the current state of the code the review references.\n\n",

@@ -232,7 +232,7 @@ site/assets/mobile.jpg          # 移动端布局（374×2327，390×844 视口�
 - 后端不可用：`create_app("http://127.0.0.1:1")` 后 `GET /api/health` → **HTTP 503**，
   `{"error":"无法访问 PowerContext 服务（请确认服务已启动）: ..."}`（`test_backend_unavailable_is_not_faked`）。
 
-## 7. 未执行 / 受限项（如实说明）
+## 7. 初次交付时的受限项（2026-11-15 历史记录，发布状态以第 9 节为准）
 
 - **界面截图**：已由协调方 Codex 用真实浏览器采集并集成到 `site/index.html`、`README.md` 与本记录（见 §5c）；
   这些是真实应用截图，**不是** Qoder 原生对话截图，亦未伪造。
@@ -270,3 +270,16 @@ CLI 登录状态为个人账号已登录。成功读取运行上下文并不证�
 最后独立验证未登录访问。另一个机器不能直接复制本机 action 恢复记录。
 
 本节由协调方 Codex 按真实返回更新；Qoder CN 完成主要应用开发、修复、测试及本次发布尝试。
+
+## 9. 2026-11-16 恢复发布成功
+
+原 Qoder CN 开发会话复用同一 action 恢复就绪草稿、完成正式发布并将访问策略设为公开。
+官方最终读取确认 `published=true`、`accessMode=public`。保留此前失败记录作为历史，
+不再将其视为当前发布状态。
+
+- 作品网址：[https://study-recall-coach-36rgmbqc041.qoder.zone](https://study-recall-coach-36rgmbqc041.qoder.zone)。
+- 协调方独立无登录 HTTP 请求：主页 200，项目标题 StudyRecall 研学记忆教练 · 项目介绍，UID 匹配。
+- 真实截图 `/assets/memory-plan.jpg`：HTTP 200，SHA256 `e517ff3b91954d0eff56175a6f2fd97a5eb02072ac55db1dbacf93c1fc566a50`。
+- 核验未发送登录凭据或会话 Cookie。浏览器自动化连接超时，未取得本次线上页面截图；
+  不将 HTTP 验证描述为浏览器无痕截图验证。本地实际界面截图仍见 `site/assets/`。
+- 原生 Qoder 对话截图或录屏仍待采集；结构化开发记录已加入此次恢复发布会话。

@@ -15,5 +15,6 @@ Codex 负责需求整理、独立核验、真实浏览器截图、证据整理�
 - `docs/evidence/qoder-cli-record.json` 摘录实际 CLI 开发事件，排除了推理、凭据和私有配置。
   原始记录摘要哈希用于对应本机留存来源；该文件是结构化证据，不是原生截图。
 
-未完成项：官方 Qoder CN Sites 准备步骤返回 `sites_unavailable`，未取得网站公开网址；
-题面要求的 Qoder 原生对话截图或录屏也尚未采集。没有编造发布链接、评测分数、用户数量或提效统计。
+2026-11-16 更新：项目网站已通过 Qoder CN Sites 发布并公开：[https://study-recall-coach-36rgmbqc041.qoder.zone](https://study-recall-coach-36rgmbqc041.qoder.zone)。
+官方读取确认发布成功与 public 策略，协调方独立无登录 HTTP 请求验证主页及截图均返回 200。
+原生 Qoder 对话截图或录屏仍需实际采集，未将应用截图代替该材料。未编造用户数量、提效统计或评测分数。

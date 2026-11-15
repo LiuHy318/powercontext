@@ -1,0 +1,12 @@
+{
+  "url": "https://study-recall-coach-36rgmbqc041.qoder.zone/",
+  "status": 200,
+  "title": "StudyRecall 研学记忆教练 · 项目介绍",
+  "expected_project_present": true,
+  "uid_present": true,
+  "asset_status": 200,
+  "asset_sha256": "e517ff3b91954d0eff56175a6f2fd97a5eb02072ac55db1dbacf93c1fc566a50",
+  "authentication_sent": false,
+  "verification_date": "2026-11-16",
+  "method": "Fresh requests.Session, no login credentials or cookies supplied"
+}

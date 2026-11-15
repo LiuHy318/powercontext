@@ -1,5 +1,15 @@
 # StudyRecall 研学记忆教练
 
+## 作品网址（2026-11-16 已发布）
+
+[https://study-recall-coach-36rgmbqc041.qoder.zone](https://study-recall-coach-36rgmbqc041.qoder.zone)
+
+Qoder CN 官方读取确认 `published=true`、访问策略 `public`。协调方用未携带登录信息的
+独立 HTTP 请求核验主页 HTTP 200、项目标题及 UID 匹配，真实应用截图 HTTP 200。
+这是项目展示站；实际 PowerContext 应用按本 README 在本地运行。
+Qoder 原生对话截图或录屏仍需实际采集补充。
+
+
 中文优先的学习资料与复习进度管理工具。学习者建立学习空间、导入笔记、记录复习自评；
 应用依据既往记忆生成**确定性、可解释**的复习计划。所有核心持久状态都真实存放在
 **OceanBase PowerContext** 中，重启进程后仍可读取。
@@ -162,8 +172,6 @@ python -m pytest -q
 - 记忆检索为关键词（FTS）匹配；未来可在配置 embedding 后启用向量/混合检索，届时再据实声明。
 - 单条 Memory 文本上限 8192 字节；超长笔记正文可分段导入。
 - 展示站 `site/index.html` 为静态合成演示，未连接数据库；真实体验需本地运行。
-- **项目网站尚未上线**：官方 Qoder CN Sites 准备步骤多次返回 `sites_unavailable`；
-  发布状态读取返回 `sites_action_unavailable`。具体原因尚未明确，没有可交付的公开网址。
-  原始恢复信息保留在原机器本次 Qoder 会话中，详见 `docs/VERIFICATION.md` §8。
+- **项目网站已发布并公开**：[https://study-recall-coach-36rgmbqc041.qoder.zone](https://study-recall-coach-36rgmbqc041.qoder.zone)，2026-11-16 无登录 HTTP 请求核验通过。
 - **Qoder 原生对话截图仍待补充**：真实 CLI 结构化开发记录已提交到
   [`docs/evidence/qoder-cli-record.json`](docs/evidence/qoder-cli-record.json)，它不是原生对话截图。

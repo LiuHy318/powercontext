@@ -47,12 +47,11 @@
       直接基于官方生态模板提交；其他方案分支不变。
 - [x] **真实 Qoder CLI 开发记录**：`docs/evidence/qoder-cli-record.json`，包含实际工具修改记录、
       公开回复摘录和真实 pytest 摘录。执行记录中的 success 表示该轮 CLI 正常结束，不表示网站发布成功。
-- [ ] **Qoder Sites 公开网址及未登录访问核验**：准备步骤持续返回 `sites_unavailable`；
-      具体原因未明，无公开网址可报告。恢复信息见 `docs/VERIFICATION.md` §8。
+- [x] **Qoder Sites 公开网址**：[https://study-recall-coach-36rgmbqc041.qoder.zone](https://study-recall-coach-36rgmbqc041.qoder.zone)。2026-11-16 官方确认发布成功与公开访问策略，独立无登录 HTTP 请求返回 200。
 - [ ] **Qoder 原生对话截图或录屏**：题面提交材料要求；真实 CLI 记录和应用截图不代替这项。
       需从本次原生 Qoder 会话实际采集，不能制作仿制对话图。
 
-网站及原生对话截图两项完成前，不能将本作品描述为赛事材料全部齐备。
+Qoder 原生对话截图或录屏尚未补齐，提交材料仍需补充这一项。
 协调方最终交付核对见 `docs/DELIVERY_STATUS.md`。
 
 ## 运行入口速查

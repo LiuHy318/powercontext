@@ -1,0 +1,1091 @@
+{
+  "startedAt": "2026-11-15T17:58:06.157Z",
+  "environment": {
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.0.0 Safari/537.36",
+    "logicalCores": 32,
+    "crossOriginIsolated": true,
+    "webgpuExposed": true,
+    "browserVersion": "141.0.7390.37",
+    "cpu": "13th Gen Intel(R) Core(TM) i9-13900HX",
+    "platform": "win32 10.0.26200",
+    "seekdb": "1.4.0 local server via @oceanbase/seekdb-node, memory_budget=2G, random TCP"
+  },
+  "model": {
+    "id": "Xenova/all-MiniLM-L6-v2",
+    "revision": "751bff37182d3f1213fa05d7196b954e230abad9",
+    "dimension": 384,
+    "license": "Apache-2.0",
+    "files": {
+      "fp32": "onnx/model.onnx",
+      "fp16": "onnx/model_fp16.onnx",
+      "q8": "onnx/model_quantized.onnx"
+    }
+  },
+  "modelFiles": [
+    {
+      "path": "config.json",
+      "bytes": 650,
+      "sha256": "7135149f7cffa1a573466c6e4d8423ed73b62fd2332c575bf738a0d033f70df7"
+    },
+    {
+      "path": "tokenizer.json",
+      "bytes": 711661,
+      "sha256": "da0e79933b9ed51798a3ae27893d3c5fa4a201126cef75586296df9b4d2c62a0"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "bytes": 366,
+      "sha256": "9261e7d79b44c8195c1cada2b453e55b00aeb81e907a6664974b4d7776172ab3"
+    },
+    {
+      "path": "special_tokens_map.json",
+      "bytes": 125,
+      "sha256": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3"
+    },
+    {
+      "path": "onnx/model.onnx",
+      "bytes": 90387606,
+      "sha256": "759c3cd2b7fe7e93933ad23c4c9181b7396442a2ed746ec7c1d46192c469c46e"
+    },
+    {
+      "path": "onnx/model_fp16.onnx",
+      "bytes": 45297825,
+      "sha256": "2cdb5e58291813b6d6e248ed69010100246821a367fa17b1b81ae9483744533d"
+    },
+    {
+      "path": "onnx/model_quantized.onnx",
+      "bytes": 22972370,
+      "sha256": "afdb6f1a0e45b715d0bb9b11772f032c399babd23bfc31fed1c170afc848bdb1"
+    }
+  ],
+  "modelBytes": {
+    "fp32": 91100408,
+    "fp16": 46010627,
+    "q8": 23685172
+  },
+  "compressionRatio": {
+    "q8": 3.8463055282013574,
+    "fp16": 1.9799862323110702
+  },
+  "dataset": {
+    "documents": 16,
+    "queries": 6,
+    "judgments": [
+      {
+        "text": "How do indexes make SQL queries faster?",
+        "relevant": [
+          "index",
+          "plan"
+        ]
+      },
+      {
+        "text": "How do database transactions provide isolation and atomicity?",
+        "relevant": [
+          "transactions",
+          "isolation"
+        ]
+      },
+      {
+        "text": "How can search combine keywords with the meaning of sentences?",
+        "relevant": [
+          "vectors",
+          "hybrid"
+        ]
+      },
+      {
+        "text": "How can smaller numeric precision reduce neural model size?",
+        "relevant": [
+          "quantization",
+          "fp16"
+        ]
+      },
+      {
+        "text": "How can neural network inference run locally inside a web browser?",
+        "relevant": [
+          "webgpu",
+          "wasm"
+        ]
+      },
+      {
+        "text": "How can batching and caching improve embedding throughput and loading?",
+        "relevant": [
+          "batching",
+          "cache"
+        ]
+      }
+    ]
+  },
+  "method": {
+    "repetitions": 3,
+    "k": 3,
+    "quality": "binary relevance Recall@3 and nDCG@3; all rankings from seekdb",
+    "timing": "performance.now; E2E includes worker round trip, HTTP retrieval and DOM update + animation frame",
+    "firstLoad": "first observed browser fetch/session initialization; cache may be reused if this origin was previously used",
+    "source": "same pinned public weights; no cloud inference; no server embeddings"
+  },
+  "configurations": [
+    {
+      "kb": "bench_87bd13427876",
+      "settings": {
+        "precision": "fp32",
+        "forceWasm": true,
+        "batchSize": 1
+      },
+      "identity": {
+        "model": "Xenova/all-MiniLM-L6-v2",
+        "revision": "751bff37182d3f1213fa05d7196b954e230abad9",
+        "precision": "fp32",
+        "backend": "wasm",
+        "reason": "",
+        "loadMs": 1774.2949999999255,
+        "threads": 4
+      },
+      "imports": [
+        {
+          "repeat": 0,
+          "embeddingMs": 278.375,
+          "writeMs": 78.51370000000043,
+          "refreshMs": 747.4197999999997,
+          "totalMs": 1495.3300000000745,
+          "documentsPerSecond": 57.47642568477773
+        },
+        {
+          "repeat": 1,
+          "embeddingMs": 349.125,
+          "writeMs": 39.27720000000045,
+          "refreshMs": 301.8827999999994,
+          "totalMs": 711.4050000011921,
+          "documentsPerSecond": 45.82885785893304
+        },
+        {
+          "repeat": 2,
+          "embeddingMs": 448.9899999983609,
+          "writeMs": 36.785900000000765,
+          "refreshMs": 707.1165999999994,
+          "totalMs": 1215.6300000008196,
+          "documentsPerSecond": 35.63553753994167
+        }
+      ],
+      "queries": [
+        {
+          "repeat": 0,
+          "query": "How do indexes make SQL queries faster?",
+          "ids": [
+            "index",
+            "plan",
+            "fp16"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 8.780000001192093,
+          "databaseMs": 44.940700000001016,
+          "e2eMs": 67.9050000011921
+        },
+        {
+          "repeat": 0,
+          "query": "How do database transactions provide isolation and atomicity?",
+          "ids": [
+            "transactions",
+            "isolation",
+            "index"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 10.050000000745058,
+          "databaseMs": 10.111000000000786,
+          "e2eMs": 33.27000000141561
+        },
+        {
+          "repeat": 0,
+          "query": "How can search combine keywords with the meaning of sentences?",
+          "ids": [
+            "hybrid",
+            "vectors",
+            "plan"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 13.81000000052154,
+          "databaseMs": 7.696199999998498,
+          "e2eMs": 36.559999998658895
+        },
+        {
+          "repeat": 0,
+          "query": "How can smaller numeric precision reduce neural model size?",
+          "ids": [
+            "quantization",
+            "fp16",
+            "batching"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 10.46000000089407,
+          "databaseMs": 7.878600000000006,
+          "e2eMs": 34.084999999031425
+        },
+        {
+          "repeat": 0,
+          "query": "How can neural network inference run locally inside a web browser?",
+          "ids": [
+            "webgpu",
+            "wasm",
+            "fp16"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 11.39500000141561,
+          "databaseMs": 7.2546000000002095,
+          "e2eMs": 33.02999999932945
+        },
+        {
+          "repeat": 0,
+          "query": "How can batching and caching improve embedding throughput and loading?",
+          "ids": [
+            "batching",
+            "cache",
+            "wasm"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 10.629999998956919,
+          "databaseMs": 7.340099999999438,
+          "e2eMs": 29.2649999987334
+        },
+        {
+          "repeat": 1,
+          "query": "How do indexes make SQL queries faster?",
+          "ids": [
+            "index",
+            "plan",
+            "fp16"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 6.400000000372529,
+          "databaseMs": 6.8518999999996595,
+          "e2eMs": 26.429999999701977
+        },
+        {
+          "repeat": 1,
+          "query": "How do database transactions provide isolation and atomicity?",
+          "ids": [
+            "transactions",
+            "isolation",
+            "index"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 11.945000000298023,
+          "databaseMs": 6.853399999999965,
+          "e2eMs": 32.96000000089407
+        },
+        {
+          "repeat": 1,
+          "query": "How can search combine keywords with the meaning of sentences?",
+          "ids": [
+            "hybrid",
+            "vectors",
+            "plan"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 13.070000000298023,
+          "databaseMs": 7.5362999999997555,
+          "e2eMs": 34.27500000037253
+        },
+        {
+          "repeat": 1,
+          "query": "How can smaller numeric precision reduce neural model size?",
+          "ids": [
+            "quantization",
+            "fp16",
+            "batching"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 10.629999998956919,
+          "databaseMs": 6.451699999999619,
+          "e2eMs": 28.054999999701977
+        },
+        {
+          "repeat": 1,
+          "query": "How can neural network inference run locally inside a web browser?",
+          "ids": [
+            "webgpu",
+            "wasm",
+            "fp16"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 7.235000001266599,
+          "databaseMs": 7.617400000000998,
+          "e2eMs": 26.40000000037253
+        },
+        {
+          "repeat": 1,
+          "query": "How can batching and caching improve embedding throughput and loading?",
+          "ids": [
+            "batching",
+            "cache",
+            "wasm"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 12.890000000596046,
+          "databaseMs": 10.139999999999418,
+          "e2eMs": 34.66000000014901
+        },
+        {
+          "repeat": 2,
+          "query": "How do indexes make SQL queries faster?",
+          "ids": [
+            "index",
+            "plan",
+            "fp16"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 5.974999999627471,
+          "databaseMs": 6.54280000000108,
+          "e2eMs": 23.230000000447035
+        },
+        {
+          "repeat": 2,
+          "query": "How do database transactions provide isolation and atomicity?",
+          "ids": [
+            "transactions",
+            "isolation",
+            "index"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 6.769999999552965,
+          "databaseMs": 6.572700000000623,
+          "e2eMs": 23.93500000052154
+        },
+        {
+          "repeat": 2,
+          "query": "How can search combine keywords with the meaning of sentences?",
+          "ids": [
+            "hybrid",
+            "vectors",
+            "plan"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 6.725000001490116,
+          "databaseMs": 6.318299999998999,
+          "e2eMs": 23.59999999962747
+        },
+        {
+          "repeat": 2,
+          "query": "How can smaller numeric precision reduce neural model size?",
+          "ids": [
+            "quantization",
+            "fp16",
+            "batching"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 6.535000000149012,
+          "databaseMs": 6.4979999999995925,
+          "e2eMs": 24.950000001117587
+        },
+        {
+          "repeat": 2,
+          "query": "How can neural network inference run locally inside a web browser?",
+          "ids": [
+            "webgpu",
+            "wasm",
+            "fp16"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 6.849999999627471,
+          "databaseMs": 6.526299999999537,
+          "e2eMs": 23.595000000670552
+        },
+        {
+          "repeat": 2,
+          "query": "How can batching and caching improve embedding throughput and loading?",
+          "ids": [
+            "batching",
+            "cache",
+            "wasm"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 8.269999999552965,
+          "databaseMs": 7.066899999999805,
+          "e2eMs": 25.81499999947846
+        }
+      ],
+      "warmupMs": 70.72999999858439,
+      "summary": {
+        "throughputDocsPerSecond": 45.82885785893304,
+        "documentEmbeddingMs": 349.125,
+        "writeMs": 39.27720000000045,
+        "refreshMs": 707.1165999999994,
+        "queryEmbeddingMs": 9.415000000968575,
+        "seekdbMs": 7.160750000000007,
+        "e2eMs": 28.65999999921769,
+        "recallAt3": 1,
+        "ndcgAt3": 1
+      }
+    },
+    {
+      "kb": "bench_c57a650ef61d",
+      "settings": {
+        "precision": "q8",
+        "forceWasm": true,
+        "batchSize": 1
+      },
+      "identity": {
+        "model": "Xenova/all-MiniLM-L6-v2",
+        "revision": "751bff37182d3f1213fa05d7196b954e230abad9",
+        "precision": "q8",
+        "backend": "wasm",
+        "reason": "",
+        "loadMs": 531.7449999991804,
+        "threads": 4
+      },
+      "imports": [
+        {
+          "repeat": 0,
+          "embeddingMs": 241.035000000149,
+          "writeMs": 65.69789999999921,
+          "refreshMs": 705.6452000000008,
+          "totalMs": 1088.945000000298,
+          "documentsPerSecond": 66.38040118650864
+        },
+        {
+          "repeat": 1,
+          "embeddingMs": 241.74499999918044,
+          "writeMs": 32.07670000000144,
+          "refreshMs": 706.5450999999994,
+          "totalMs": 1001.3450000006706,
+          "documentsPerSecond": 66.18544333928
+        },
+        {
+          "repeat": 2,
+          "embeddingMs": 198.1450000014156,
+          "writeMs": 24.65099999999984,
+          "refreshMs": 806.2574000000004,
+          "totalMs": 1047.164999999106,
+          "documentsPerSecond": 80.74894647801202
+        }
+      ],
+      "queries": [
+        {
+          "repeat": 0,
+          "query": "How do indexes make SQL queries faster?",
+          "ids": [
+            "index",
+            "plan",
+            "fp16"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 5.949999999254942,
+          "databaseMs": 20.01419999999962,
+          "e2eMs": 37.7649999987334
+        },
+        {
+          "repeat": 0,
+          "query": "How do database transactions provide isolation and atomicity?",
+          "ids": [
+            "transactions",
+            "isolation",
+            "index"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 5.560000000521541,
+          "databaseMs": 7.086800000000949,
+          "e2eMs": 23.385000001639128
+        },
+        {
+          "repeat": 0,
+          "query": "How can search combine keywords with the meaning of sentences?",
+          "ids": [
+            "vectors",
+            "hybrid",
+            "plan"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 6.160000000149012,
+          "databaseMs": 7.056300000000192,
+          "e2eMs": 24.06499999947846
+        },
+        {
+          "repeat": 0,
+          "query": "How can smaller numeric precision reduce neural model size?",
+          "ids": [
+            "quantization",
+            "fp16",
+            "batching"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 7.380000000819564,
+          "databaseMs": 6.825999999999112,
+          "e2eMs": 29.115000000223517
+        },
+        {
+          "repeat": 0,
+          "query": "How can neural network inference run locally inside a web browser?",
+          "ids": [
+            "webgpu",
+            "wasm",
+            "fp16"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 6.21000000089407,
+          "databaseMs": 6.8254999999990105,
+          "e2eMs": 23.709999999031425
+        },
+        {
+          "repeat": 0,
+          "query": "How can batching and caching improve embedding throughput and loading?",
+          "ids": [
+            "batching",
+            "cache",
+            "wasm"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 6.930000001564622,
+          "databaseMs": 6.819799999999304,
+          "e2eMs": 25
+        },
+        {
+          "repeat": 1,
+          "query": "How do indexes make SQL queries faster?",
+          "ids": [
+            "index",
+            "plan",
+            "fp16"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 6.0400000009685755,
+          "databaseMs": 6.643500000000131,
+          "e2eMs": 24.75
+        },
+        {
+          "repeat": 1,
+          "query": "How do database transactions provide isolation and atomicity?",
+          "ids": [
+            "transactions",
+            "isolation",
+            "index"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 5.599999999627471,
+          "databaseMs": 6.445299999999406,
+          "e2eMs": 22.505000000819564
+        },
+        {
+          "repeat": 1,
+          "query": "How can search combine keywords with the meaning of sentences?",
+          "ids": [
+            "vectors",
+            "hybrid",
+            "plan"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 6.160000000149012,
+          "databaseMs": 8.298500000000786,
+          "e2eMs": 25.31499999947846
+        },
+        {
+          "repeat": 1,
+          "query": "How can smaller numeric precision reduce neural model size?",
+          "ids": [
+            "quantization",
+            "fp16",
+            "batching"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 6.66499999910593,
+          "databaseMs": 7.393200000000434,
+          "e2eMs": 27.050000000745058
+        },
+        {
+          "repeat": 1,
+          "query": "How can neural network inference run locally inside a web browser?",
+          "ids": [
+            "webgpu",
+            "wasm",
+            "fp16"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 11.279999999329448,
+          "databaseMs": 7.400499999999738,
+          "e2eMs": 31.094999998807907
+        },
+        {
+          "repeat": 1,
+          "query": "How can batching and caching improve embedding throughput and loading?",
+          "ids": [
+            "batching",
+            "cache",
+            "wasm"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 8.524999998509884,
+          "databaseMs": 6.502500000000509,
+          "e2eMs": 25.544999999925494
+        },
+        {
+          "repeat": 2,
+          "query": "How do indexes make SQL queries faster?",
+          "ids": [
+            "index",
+            "plan",
+            "fp16"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 5.910000000149012,
+          "databaseMs": 6.00340000000142,
+          "e2eMs": 24.84999999962747
+        },
+        {
+          "repeat": 2,
+          "query": "How do database transactions provide isolation and atomicity?",
+          "ids": [
+            "transactions",
+            "isolation",
+            "index"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 5.714999999850988,
+          "databaseMs": 6.246099999998478,
+          "e2eMs": 22.824999999254942
+        },
+        {
+          "repeat": 2,
+          "query": "How can search combine keywords with the meaning of sentences?",
+          "ids": [
+            "vectors",
+            "hybrid",
+            "plan"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 6.399999998509884,
+          "databaseMs": 6.288300000000163,
+          "e2eMs": 23.365000000223517
+        },
+        {
+          "repeat": 2,
+          "query": "How can smaller numeric precision reduce neural model size?",
+          "ids": [
+            "quantization",
+            "fp16",
+            "batching"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 6.1849999986588955,
+          "databaseMs": 6.3400000000001455,
+          "e2eMs": 22.945000000298023
+        },
+        {
+          "repeat": 2,
+          "query": "How can neural network inference run locally inside a web browser?",
+          "ids": [
+            "webgpu",
+            "wasm",
+            "fp16"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 6.324999999254942,
+          "databaseMs": 6.669299999999566,
+          "e2eMs": 23.515000000596046
+        },
+        {
+          "repeat": 2,
+          "query": "How can batching and caching improve embedding throughput and loading?",
+          "ids": [
+            "batching",
+            "cache",
+            "wasm"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 7.009999999776483,
+          "databaseMs": 7.0108000000000175,
+          "e2eMs": 24.815000001341105
+        }
+      ],
+      "warmupMs": 39.355000000447035,
+      "summary": {
+        "throughputDocsPerSecond": 66.38040118650864,
+        "documentEmbeddingMs": 241.035000000149,
+        "writeMs": 32.07670000000144,
+        "refreshMs": 706.5450999999994,
+        "queryEmbeddingMs": 6.197499999776483,
+        "seekdbMs": 6.8226499999991574,
+        "e2eMs": 24.782500000670552,
+        "recallAt3": 1,
+        "ndcgAt3": 1
+      }
+    },
+    {
+      "kb": "bench_4f0ea91669f6",
+      "settings": {
+        "precision": "q8",
+        "forceWasm": true,
+        "batchSize": 8
+      },
+      "identity": {
+        "model": "Xenova/all-MiniLM-L6-v2",
+        "revision": "751bff37182d3f1213fa05d7196b954e230abad9",
+        "precision": "q8",
+        "backend": "wasm",
+        "reason": "",
+        "loadMs": 348.93999999947846,
+        "threads": 4
+      },
+      "imports": [
+        {
+          "repeat": 0,
+          "embeddingMs": 201.70999999903142,
+          "writeMs": 74.20739999999932,
+          "refreshMs": 706.1002999999982,
+          "totalMs": 1066.429999999702,
+          "documentsPerSecond": 79.32179862216464
+        },
+        {
+          "repeat": 1,
+          "embeddingMs": 273.34999999962747,
+          "writeMs": 51.203999999997905,
+          "refreshMs": 806.1514999999999,
+          "totalMs": 1155.620000001043,
+          "documentsPerSecond": 58.53301627957493
+        },
+        {
+          "repeat": 2,
+          "embeddingMs": 308.64000000059605,
+          "writeMs": 30.897699999997712,
+          "refreshMs": 505.52939999999944,
+          "totalMs": 877.5400000009686,
+          "documentsPerSecond": 51.84033177802326
+        }
+      ],
+      "queries": [
+        {
+          "repeat": 0,
+          "query": "How do indexes make SQL queries faster?",
+          "ids": [
+            "index",
+            "plan",
+            "fp16"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 7.740000000223517,
+          "databaseMs": 21.511500000000524,
+          "e2eMs": 46.005000000819564
+        },
+        {
+          "repeat": 0,
+          "query": "How do database transactions provide isolation and atomicity?",
+          "ids": [
+            "transactions",
+            "isolation",
+            "index"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 10.040000000968575,
+          "databaseMs": 7.243300000001909,
+          "e2eMs": 30.53500000014901
+        },
+        {
+          "repeat": 0,
+          "query": "How can search combine keywords with the meaning of sentences?",
+          "ids": [
+            "hybrid",
+            "vectors",
+            "plan"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 9.350000001490116,
+          "databaseMs": 10.364199999999983,
+          "e2eMs": 32.665000000968575
+        },
+        {
+          "repeat": 0,
+          "query": "How can smaller numeric precision reduce neural model size?",
+          "ids": [
+            "quantization",
+            "fp16",
+            "batching"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 11.46000000089407,
+          "databaseMs": 6.263599999998405,
+          "e2eMs": 29.630000000819564
+        },
+        {
+          "repeat": 0,
+          "query": "How can neural network inference run locally inside a web browser?",
+          "ids": [
+            "webgpu",
+            "wasm",
+            "fp16"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 9.694999998435378,
+          "databaseMs": 7.0152000000016415,
+          "e2eMs": 29.154999999329448
+        },
+        {
+          "repeat": 0,
+          "query": "How can batching and caching improve embedding throughput and loading?",
+          "ids": [
+            "batching",
+            "wasm",
+            "cache"
+          ],
+          "recall": 1,
+          "ndcg": 0.9197207891481876,
+          "embeddingMs": 10.875,
+          "databaseMs": 8.361199999999371,
+          "e2eMs": 39.369999999180436
+        },
+        {
+          "repeat": 1,
+          "query": "How do indexes make SQL queries faster?",
+          "ids": [
+            "index",
+            "plan",
+            "fp16"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 6.679999999701977,
+          "databaseMs": 9.226699999999255,
+          "e2eMs": 28.90000000037253
+        },
+        {
+          "repeat": 1,
+          "query": "How do database transactions provide isolation and atomicity?",
+          "ids": [
+            "transactions",
+            "isolation",
+            "index"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 5.775000000372529,
+          "databaseMs": 7.6929999999993015,
+          "e2eMs": 27
+        },
+        {
+          "repeat": 1,
+          "query": "How can search combine keywords with the meaning of sentences?",
+          "ids": [
+            "hybrid",
+            "vectors",
+            "plan"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 8.304999999701977,
+          "databaseMs": 6.7762000000002445,
+          "e2eMs": 28.450000001117587
+        },
+        {
+          "repeat": 1,
+          "query": "How can smaller numeric precision reduce neural model size?",
+          "ids": [
+            "quantization",
+            "fp16",
+            "batching"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 7.849999999627471,
+          "databaseMs": 7.2730999999985215,
+          "e2eMs": 28.190000001341105
+        },
+        {
+          "repeat": 1,
+          "query": "How can neural network inference run locally inside a web browser?",
+          "ids": [
+            "webgpu",
+            "wasm",
+            "fp16"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 10.640000000596046,
+          "databaseMs": 6.699899999999616,
+          "e2eMs": 28.93500000052154
+        },
+        {
+          "repeat": 1,
+          "query": "How can batching and caching improve embedding throughput and loading?",
+          "ids": [
+            "batching",
+            "wasm",
+            "cache"
+          ],
+          "recall": 1,
+          "ndcg": 0.9197207891481876,
+          "embeddingMs": 11.694999998435378,
+          "databaseMs": 7.663000000000466,
+          "e2eMs": 30.855000000447035
+        },
+        {
+          "repeat": 2,
+          "query": "How do indexes make SQL queries faster?",
+          "ids": [
+            "index",
+            "plan",
+            "fp16"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 6.139999998733401,
+          "databaseMs": 8.776499999999942,
+          "e2eMs": 32.600000001490116
+        },
+        {
+          "repeat": 2,
+          "query": "How do database transactions provide isolation and atomicity?",
+          "ids": [
+            "transactions",
+            "isolation",
+            "index"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 9.015000000596046,
+          "databaseMs": 11.234800000001997,
+          "e2eMs": 38.994999999180436
+        },
+        {
+          "repeat": 2,
+          "query": "How can search combine keywords with the meaning of sentences?",
+          "ids": [
+            "hybrid",
+            "vectors",
+            "plan"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 11.234999999403954,
+          "databaseMs": 7.559699999997974,
+          "e2eMs": 32
+        },
+        {
+          "repeat": 2,
+          "query": "How can smaller numeric precision reduce neural model size?",
+          "ids": [
+            "quantization",
+            "fp16",
+            "batching"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 11.150000000372529,
+          "databaseMs": 7.629700000001321,
+          "e2eMs": 33.024999998509884
+        },
+        {
+          "repeat": 2,
+          "query": "How can neural network inference run locally inside a web browser?",
+          "ids": [
+            "webgpu",
+            "wasm",
+            "fp16"
+          ],
+          "recall": 1,
+          "ndcg": 1,
+          "embeddingMs": 9.344999998807907,
+          "databaseMs": 7.739600000000792,
+          "e2eMs": 30.449999999254942
+        },
+        {
+          "repeat": 2,
+          "query": "How can batching and caching improve embedding throughput and loading?",
+          "ids": [
+            "batching",
+            "wasm",
+            "cache"
+          ],
+          "recall": 1,
+          "ndcg": 0.9197207891481876,
+          "embeddingMs": 10.125,
+          "databaseMs": 7.766100000000733,
+          "e2eMs": 30.419999999925494
+        }
+      ],
+      "warmupMs": 11.879999998956919,
+      "summary": {
+        "throughputDocsPerSecond": 58.53301627957493,
+        "documentEmbeddingMs": 273.34999999962747,
+        "writeMs": 51.203999999997905,
+        "refreshMs": 706.1002999999982,
+        "queryEmbeddingMs": 9.522499999962747,
+        "seekdbMs": 7.677999999999884,
+        "e2eMs": 30.492499999701977,
+        "recallAt3": 1,
+        "ndcgAt3": 0.9866201315246977
+      }
+    },
+    {
+      "settings": {
+        "precision": "fp16",
+        "forceWasm": false,
+        "batchSize": 8
+      },
+      "identity": {
+        "model": "Xenova/all-MiniLM-L6-v2",
+        "revision": "751bff37182d3f1213fa05d7196b954e230abad9",
+        "precision": "q8",
+        "backend": "wasm",
+        "reason": "WebGPU 初始化或试运行失败，已重建 WASM Worker：10454392",
+        "loadMs": 342.6350000016391,
+        "threads": 4
+      },
+      "skipped": true,
+      "reason": "本环境未成功启用 WebGPU FP16；不将 WASM 结果记为 WebGPU 实测"
+    }
+  ],
+  "browserRequests": {
+    "hosts": [
+      "127.0.0.1"
+    ],
+    "blockedExternalRequests": []
+  },
+  "comparisons": {
+    "q8RecallDelta": 0,
+    "q8NdcgDelta": 0,
+    "batch8Speedup": 0.881781598684754
+  },
+  "ui": {
+    "importQuery": true,
+    "mobile": {
+      "viewport": 390,
+      "width": 390
+    }
+  }
+}

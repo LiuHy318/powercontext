@@ -1,0 +1,19 @@
+{
+  "browser": "157.0.8103.52",
+  "identity": {
+    "model": "Xenova/all-MiniLM-L6-v2",
+    "revision": "751bff37182d3f1213fa05d7196b954e230abad9",
+    "precision": "fp16",
+    "backend": "webgpu",
+    "reason": "",
+    "loadMs": 2239.0250000003725,
+    "threads": 4
+  },
+  "mobile": {
+    "viewport": 390,
+    "width": 390
+  },
+  "importAndQuery": true,
+  "clearStaleResults": true,
+  "collectionSwitch": true
+}

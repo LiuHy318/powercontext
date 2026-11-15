@@ -1,0 +1,29 @@
+{
+  "name": "stepfun-edge-kb",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "prestart": "node scripts/build.mjs",
+    "predev": "node scripts/build.mjs",
+    "start": "node server.mjs",
+    "dev": "node server.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "models": "node scripts/download-model.mjs",
+    "benchmark": "node scripts/browser-benchmark.mjs"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "4.3.2",
+    "@oceanbase/seekdb-node": "1.4.0",
+    "express": "5.1.0",
+    "seekdb": "1.4.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.27.2",
+    "playwright": "1.56.1"
+  }
+}

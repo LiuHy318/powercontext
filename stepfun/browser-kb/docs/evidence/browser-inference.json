@@ -1,0 +1,48 @@
+{
+  "kind": "actual browser embedding component test; no database or retrieval quality is claimed",
+  "browser": "141.0.7390.37",
+  "runs": [
+    {
+      "identity": {
+        "model": "Xenova/all-MiniLM-L6-v2",
+        "revision": "751bff37182d3f1213fa05d7196b954e230abad9",
+        "precision": "fp32",
+        "backend": "wasm",
+        "reason": "",
+        "loadMs": 1816.7050000000745,
+        "threads": 4
+      },
+      "dimension": 384,
+      "norm": 0.9999999702980418,
+      "embeddingMs": 83.37000000011176
+    },
+    {
+      "identity": {
+        "model": "Xenova/all-MiniLM-L6-v2",
+        "revision": "751bff37182d3f1213fa05d7196b954e230abad9",
+        "precision": "q8",
+        "backend": "wasm",
+        "reason": "",
+        "loadMs": 1191.3799999998882,
+        "threads": 4
+      },
+      "dimension": 384,
+      "norm": 1.0000000788763534,
+      "embeddingMs": 79.87000000011176
+    },
+    {
+      "identity": {
+        "model": "Xenova/all-MiniLM-L6-v2",
+        "revision": "751bff37182d3f1213fa05d7196b954e230abad9",
+        "precision": "fp16",
+        "backend": "wasm",
+        "reason": "WebGPU 初始化失败，已降级 WASM：没有可用适配器",
+        "loadMs": 2038.8149999994785,
+        "threads": 4
+      },
+      "dimension": 384,
+      "norm": 1.0000002895796982,
+      "embeddingMs": 43
+    }
+  ]
+}

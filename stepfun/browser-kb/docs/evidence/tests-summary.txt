@@ -1,0 +1,7 @@
+Coordinator summary of actually executed Node test output, 2026-11-16
+Tests: 5
+Pass: 5
+Fail: 0
+Duration: 9605.7498 ms
+Includes real seekdb hybrid ranking, incremental refresh, concurrent collection isolation and close/reopen persistence.
+Separate real Chrome 157 browser benchmark and UI results are in adjacent JSON files.

@@ -1,0 +1,29 @@
+{
+ "description":"Synthetic English study corpus; no personal data. Fixed relevance judgments for reproducible retrieval tests.",
+ "documents":[
+ {"id":"index","title":"Database indexes","text":"Database indexes speed up queries by allowing the engine to locate matching rows without scanning every row. A B-tree index supports equality lookups and range queries. Indexes consume storage and add maintenance work to writes."},
+ {"id":"plan","title":"SQL query plans","text":"A SQL query optimizer chooses an execution plan based on estimated cost. An index scan can reduce the number of rows read. EXPLAIN displays the chosen operators and helps diagnose slow database queries."},
+ {"id":"transactions","title":"Transactions","text":"A database transaction groups operations into an atomic unit of work. Commit makes changes durable, while rollback discards uncommitted changes. ACID stands for atomicity, consistency, isolation, and durability."},
+ {"id":"isolation","title":"Transaction isolation","text":"Transaction isolation controls what concurrent transactions can observe. Serializable isolation prevents anomalies by making concurrent execution equivalent to a serial order. Read committed blocks dirty reads but permits non-repeatable reads."},
+ {"id":"vectors","title":"Semantic vector search","text":"Semantic search represents text as dense embedding vectors. Similar meanings have nearby vectors, even when the sentences use different words. Cosine similarity compares the angle between normalized embeddings."},
+ {"id":"hybrid","title":"Hybrid retrieval","text":"Hybrid retrieval combines lexical full-text search with semantic vector search. Reciprocal rank fusion combines ranked signals inside the search database. This helps retrieve exact keywords and paraphrases in one request."},
+ {"id":"quantization","title":"Model quantization","text":"INT8 quantization reduces model weights from 32-bit floating point to eight-bit integers. The smaller model takes less disk space and bandwidth. Quantization can change embedding values, so retrieval quality must be measured."},
+ {"id":"fp16","title":"Half precision inference","text":"FP16 uses sixteen-bit floating point values instead of FP32. Half precision reduces neural network model size and GPU memory use. An embedding benchmark compares quality and latency on the same evaluation queries."},
+ {"id":"webgpu","title":"Browser GPU inference","text":"WebGPU lets a browser run parallel computations on a local graphics processor. A browser can execute an ONNX embedding model without sending text to a cloud inference service. GPU adapter and shader features affect compatibility."},
+ {"id":"wasm","title":"Portable browser inference","text":"WebAssembly is a portable execution format for modern browsers. A WASM inference backend can run neural networks on the local CPU when WebGPU is unavailable. SIMD and worker threads can improve throughput."},
+ {"id":"batching","title":"Batching embeddings","text":"Embedding batching processes multiple documents in one model invocation. Batching amortizes scheduling overhead and can increase throughput. Very large batches increase memory demand, so batch size should be measured."},
+ {"id":"cache","title":"Model caching","text":"Caching model files avoids downloading the same weights repeatedly. Cold loading includes fetching files and initializing the inference session. Warm requests reuse the initialized model to reduce latency."},
+ {"id":"cooking","title":"Cooking rice","text":"Rinse rice with clean water before cooking. Simmer rice in a covered pot until the water is absorbed. Let the rice rest for several minutes before serving."},
+ {"id":"planets","title":"The solar system","text":"Mars is the red planet. Jupiter is the largest planet in the solar system. Earth orbits the sun and has a moon."},
+ {"id":"exercise","title":"Regular exercise","text":"Walking and cycling are forms of aerobic exercise. Consistent moderate physical activity supports cardiovascular health. Rest and hydration are important after exercise."},
+ {"id":"music","title":"Learning music","text":"A piano keyboard contains black and white keys. Regular practice of scales improves finger coordination. Musical rhythm organizes sounds into patterns of beats."}
+ ],
+ "queries":[
+ {"text":"How do indexes make SQL queries faster?","relevant":["index","plan"]},
+ {"text":"How do database transactions provide isolation and atomicity?","relevant":["transactions","isolation"]},
+ {"text":"How can search combine keywords with the meaning of sentences?","relevant":["vectors","hybrid"]},
+ {"text":"How can smaller numeric precision reduce neural model size?","relevant":["quantization","fp16"]},
+ {"text":"How can neural network inference run locally inside a web browser?","relevant":["webgpu","wasm"]},
+ {"text":"How can batching and caching improve embedding throughput and loading?","relevant":["batching","cache"]}
+ ]
+}

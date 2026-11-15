@@ -1,0 +1,1 @@
+{"id":"Xenova/all-MiniLM-L6-v2","revision":"751bff37182d3f1213fa05d7196b954e230abad9","dimension":384,"license":"Apache-2.0","files":{"fp32":"onnx/model.onnx","fp16":"onnx/model_fp16.onnx","q8":"onnx/model_quantized.onnx"}}

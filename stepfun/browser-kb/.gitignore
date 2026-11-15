@@ -1,0 +1,7 @@
+node_modules/
+.runtime/
+.env
+.env.*
+*.qoder.site
+test-results/
+public/embedding-worker.mjs
